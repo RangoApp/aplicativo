@@ -1,0 +1,32 @@
+:root {
+    --color:#717171;
+    --color-bold:#3e3e3e;
+    --border:#c5c5c5;
+    --primaryColor: blue;
+    --shadow:0 1px 4px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.06);
+    --error:#ee4c58
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+.back-btn {
+    border: none;
+    background: transparent;
+    position: absolute;
+    top:10px;
+    left:10px;
+}
+
+.back-btn i {
+    color: var(--primaryColor);
+    font-size: 19px;
+}

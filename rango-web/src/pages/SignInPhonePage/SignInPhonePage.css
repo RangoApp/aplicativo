@@ -1,0 +1,131 @@
+.sign-in-phone-page {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 10%;
+    height: 100vh;
+}
+
+.sign-in-phone-container {
+    width: 512px;
+    background-color: white;
+    display: flex;
+    position: relative;
+    padding: 36px 50px;
+    flex-direction: column;
+    gap:12px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.phone-number-sign-in {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.otp-phone-number-sign-in {
+    display: flex;
+    flex-direction: column;
+}
+
+.phone-number-sign-in p,.otp-phone-number-sign-in p:first-child {
+    font-size: 1.125rem;
+    align-self: center;
+    font-weight: lighter;
+    color: var(--color);
+}
+
+.otp-phone-number-sign-in p:first-child {
+    margin: 0 0 10px;
+}
+
+.otp-phone-number-sign-in .phone-or-email-sign-in {
+    font-size: 1.125rem;
+    line-height: 1.375rem;
+    text-align: center;
+    margin: 0 0 26px;
+    word-break: break-all;
+    font-weight: 500;
+    color: var(--color-bold);
+}
+
+.phone-number-sign-in .phone-number-input-wrapper input {
+    color: #3e3e3e;
+    font-weight: 500;
+    outline: none;
+    border-radius: 4px;
+    border: 1px solid #dcdcdc;
+    height: 48px;
+    font-size: 1rem;
+    line-height: 20px;
+    padding: 0 10px;
+    z-index: 1;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.phone-number-sign-in button
+,.otp-phone-number-sign-in button{
+    cursor: pointer;
+    width: 100%;
+    background: var(--primaryColor);
+    padding: 14px 0;
+    border-radius: 4px;
+    color: #fff;
+    border: 1px solid var(--primaryColor);
+}
+
+.phone-number-sign-in .phone-number-wrapper .phone-number-input-wrapper span {
+    color: var(--error);
+    font-size: .75rem;
+    margin: 4px 0 0;
+    box-sizing: border-box;
+}
+
+.phone-number-sign-in .phone-number-wrapper .phone-number-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    min-height: 73px;
+    width: 100%;
+}
+
+.phone-number-sign-in .phone-number-wrapper {
+    display: flex;
+    height: 60px;
+    margin-bottom: 8px;
+}
+
+.phone-number-sign-in .phone-number-wrapper .country-area {
+    background: #f2f2f2;
+    display: flex;
+    padding: 0 10px;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    width: 102px;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+.phone-number-sign-in .phone-number-wrapper p {
+    color:#717171;
+    font-size: 14px;
+}
+
+.phone-number-sign-in .phone-number-wrapper input {
+    width: 100%;
+}
+
+@media only screen and (max-width: 960px) {
+    .sign-in-phone-page{
+        padding: 10px;
+        align-items: flex-start;
+    }
+    .sign-in-phone-page .sign-in-phone-container {
+        padding: 10px;
+        width: 100%;
+        box-shadow: none;
+    }
+}
