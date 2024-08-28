@@ -23,10 +23,10 @@ const SignInPage = () => {
   };
 
   useEffect(() => {
-    const user = auth.currentUser;
-    if(user != null && user.emailVerified && user.phoneNumber != null) {
-      navigator('/home')
-    }
+    // const user = auth.currentUser;
+    // if(user != null && user.emailVerified && user.phoneNumber != null) {
+    //   navigator('/home')
+    // }
 
     if(status == 1) {
       showMessage("error","Erro: Servidor Desligado")
@@ -37,11 +37,8 @@ const SignInPage = () => {
       const provider = new GoogleAuthProvider();
       try {
         var result = await signInWithPopup(auth,provider)
-        if(getAdditionalUserInfo(result).isNewUser || auth.currentUser.phoneNumber == null) {
-          navigator("/entrar/celular")
-        } else {
-          navigator("/home");
-        } 
+        console.log(result)
+        navigator("/entrar/celular")
         
       } catch (error) {
         console.error("Erro ao realizar o login", error);

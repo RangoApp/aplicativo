@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import api from "../../config/ApiConfig";
 import { Link, useNavigate } from "react-router-dom";
-import { signInWithCustomToken, signInWithPhoneNumber, signInWithRedirect } from "firebase/auth";
+import { fetchSignInMethodsForEmail, signInWithCustomToken, signInWithPhoneNumber, signInWithRedirect } from "firebase/auth";
 import { auth } from "../../config/FirebaseConfig";
 import MessageComponent from "../../components/MessageComponent";
 
@@ -28,6 +28,10 @@ const SignInEmailPage = () => {
         var body = {
             email: emailInput
         }
+
+        // console.log(emailInput)
+        // const methods = await fetchSignInMethodsForEmail(auth,emailInput);
+        // console.log(methods)
         
         try {
             await api.post("/auth/sendEmailVerification",body);
@@ -92,6 +96,8 @@ const SignInEmailPage = () => {
                 }
                 
                 {showOTPEmail && <div className="otp-phone-number-sign-in">
+                    <p>Digite o código de 6 dígitos que enviamos por E-mail para o</p>
+                    <p className="phone-or-email-sign-in">{emailInput}</p>
                     <input value={otpEmail} onChange={e=>setOtpEmail(e.target.value)}/>
                     <button onClick={handleEmailCodeVerification}>Verificar Código Email</button>
                 </div>}

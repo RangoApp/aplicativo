@@ -6,6 +6,10 @@
     height: 100vh;
 }
 
+.sign-in-phone-page p {
+    text-align: center;
+}
+
 .sign-in-phone-container {
     width: 512px;
     background-color: white;
@@ -36,10 +40,6 @@
     color: var(--color);
 }
 
-.otp-phone-number-sign-in p:first-child {
-    margin: 0 0 10px;
-}
-
 .otp-phone-number-sign-in .phone-or-email-sign-in {
     font-size: 1.125rem;
     line-height: 1.375rem;
@@ -66,7 +66,9 @@
 }
 
 .phone-number-sign-in button
-,.otp-phone-number-sign-in button{
+,.otp-phone-number-sign-in button
+,.edit-address .save-btn
+{
     cursor: pointer;
     width: 100%;
     background: var(--primaryColor);
@@ -120,11 +122,11 @@
 
 @media only screen and (max-width: 960px) {
     .sign-in-phone-page{
-        padding: 10px;
+        padding: 0px;
         align-items: flex-start;
     }
     .sign-in-phone-page .sign-in-phone-container {
-        padding: 10px;
+        padding: 32px 10px;
         width: 100%;
         box-shadow: none;
     }

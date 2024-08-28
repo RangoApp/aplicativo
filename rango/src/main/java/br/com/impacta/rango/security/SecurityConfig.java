@@ -40,7 +40,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000","https://rango-food.netlify.app") // Adicione o URL do seu frontend
+                        .allowedOrigins("http://localhost:3000","http://127.0.0.1:3000","http://192.168.56.1:3000","https://rango-food.netlify.app") // Adicione o URL do seu frontend
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);

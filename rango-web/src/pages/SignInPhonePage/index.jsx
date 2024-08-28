@@ -1,15 +1,17 @@
-import { deleteUser, linkWithPhoneNumber, RecaptchaVerifier, signOut } from "firebase/auth";
+import { deleteUser, fetchSignInMethodsForEmail, linkWithPhoneNumber, RecaptchaVerifier, signInWithPhoneNumber, signOut } from "firebase/auth";
 import { auth } from "../../config/FirebaseConfig";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../config/ApiConfig";
 import './SignInPhonePage.css';
 import MessageComponent from "../../components/MessageComponent";
+import { useAuth } from "../../components/AuthContext";
 
 const SignInPhonePage = () => {
 
+    const { setUser } = useAuth();
     const [phoneNumber,setPhoneNumber] = useState('');
-    const [otp,setOtp] = useState('123456');
+    const [otp,setOtp] = useState('');
     const [showOtpSection,setShowOTPSection] = useState(false);
     const [confirmationResult, setConfirmationResult]= useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -46,11 +48,27 @@ const SignInPhonePage = () => {
         try {
             onVerifyRECaptcha();
             const appVerifier = window.recaptchaVerifier;
+
+            console.log(unformattedPhone)
             const confirmation = await linkWithPhoneNumber(auth.currentUser,unformattedPhone,appVerifier)
             setConfirmationResult(confirmation);
             setShowOTPSection(true);
         } catch (e) {
-            showMessage("error","Erro de reCAPTCH: Por favor reinicie a página e tente novamente");
+            if (e.toString().indexOf("provider-already-linked") > 0 ) {
+
+                if(auth.currentUser.phoneNumber != unformattedPhone) {
+                    showMessage("error","Erro: Número de telefone diferente do usuário cadastrado");
+                } else {
+                    const appVerifier = window.recaptchaVerifier;
+                    const confirmationAlready = await signInWithPhoneNumber(auth,unformattedPhone,appVerifier);
+                    setConfirmationResult(confirmationAlready);
+                    setShowOTPSection(true)
+                }
+               
+            } else {
+                showMessage("error","Erro de reCAPTCH: Por favor reinicie a página e tente novamente");
+            }
+            
         } finally {
             setIsLoading(false);
         }
@@ -88,11 +106,17 @@ const SignInPhonePage = () => {
         setIsLoading(true);
         try {
           await confirmationResult.confirm(otp);
-          const idToken = await auth.currentUser.getIdToken(true);
+          const currentUser = auth.currentUser;
+          const idToken = await currentUser.getIdToken(true);
+         
+          localStorage.setItem("refreshToken",currentUser.stsTokenManager.refreshToken);
           localStorage.setItem("idToken", idToken);
-          localStorage.setItem("emailRemember",auth.currentUser.email);
+          localStorage.setItem("emailRemember",currentUser.email);
       
-          await api.post("/auth/register");
+          var res = await api.post("/auth/register");
+          var idRemember = res.data;
+          localStorage.setItem("idRemember",idRemember); 
+            setUser(currentUser);
           navigator("/home"); // Redireciona para a página inicial
         } catch(e) {
             await deleteUser(auth.currentUser);
@@ -129,7 +153,9 @@ const SignInPhonePage = () => {
                         <span>{!isValid && "Número de celular inválido"}</span>
                     </div>
                     </div>
-                    <button onClick={sendOTPCode}>Enviar Código</button>
+                    <button style={{"pointerEvents":isValid && phoneNumber != '' ? "visible" : "none",
+                    "opacity":isValid && phoneNumber != ''? "1" : "0.6"
+                }} onClick={sendOTPCode}>Enviar Código</button>
                 </div> 
                 }
                
@@ -137,7 +163,7 @@ const SignInPhonePage = () => {
                 <div className="otp-phone-number-sign-in">
                     <p>Digite o código de 6 dígitos que enviamos por SMS para o</p>
                     <p className="phone-or-email-sign-in">{phoneNumber}</p>
-                    <input value={otp} onChange={e=> setOtp(e.target.value)}/>
+                    <input type="number" maxLength={6} value={otp} onChange={e=> setOtp(e.target.value)}/>
                     <button onClick={onOTPVerify}>Continuar</button>
                 </div>
                 }

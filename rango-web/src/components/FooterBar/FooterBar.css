@@ -1,0 +1,29 @@
+.footer-bar {
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    background: #fff;
+    box-shadow: var(--shadow-top);
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-bar button {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+}
+
+.footer-bar button i {
+    align-self: center;
+}
+
+.footer-bar button p {
+    margin: 0;
+    font-size: 12px;
+}
