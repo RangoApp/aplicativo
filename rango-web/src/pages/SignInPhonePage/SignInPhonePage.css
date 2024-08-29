@@ -72,10 +72,17 @@
     cursor: pointer;
     width: 100%;
     background: var(--primaryColor);
-    padding: 14px 0;
+    height: 48px;
     border-radius: 4px;
     color: #fff;
     border: 1px solid var(--primaryColor);
+    transition: .2s ease;
+}
+
+.phone-number-sign-in button:hover
+,.otp-phone-number-sign-in button:hover
+,.edit-address .save-btn:hover {
+    filter: brightness(0.9);
 }
 
 .phone-number-sign-in .phone-number-wrapper .phone-number-input-wrapper span {
@@ -105,6 +112,7 @@
     padding: 0 10px;
     align-items: center;
     justify-content: center;
+    gap:8px;
     height: 48px;
     width: 102px;
     margin-right: 10px;

@@ -1,20 +1,22 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import FooterBar from "../FooterBar";
+import Header from "../Header";
 
 const ProtectedRoute = ({ component: Component }) => {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, isAuthenticated } = useAuth();
 
   const Loading = () => <div className='loading-screen'>Loading...</div>;
   if (isLoading) {
     return <Loading />;
   }
 
-  if (user != null) {
+  if (isAuthenticated) {
     return (
         <>
+        <Header />
         {Component}
-        <FooterBar />
+
         </>
     )
   } else {

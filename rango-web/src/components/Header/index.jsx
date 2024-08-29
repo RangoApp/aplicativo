@@ -3,6 +3,8 @@ import './Header.css';
 import MessageComponent from '../MessageComponent';
 import { apiGoogleKey } from '../../config/ApiConfig';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import FooterBar from '../FooterBar';
 
 const Header = () => {
     const [location, setLocation] = useState({ latitude: null, longitude: null });
@@ -12,7 +14,7 @@ const Header = () => {
 
     //Endereços ligados ao usuário
     const [userAddress,setUserAddress] = useState('');
-    const [userAddressList,setAddressList] = useState([{rua:'rua nicola',numero: '22',bairro:'bairrasso',cidade:'cidadao',estado:'sp',complemento:''},{rua:'rua nicola',numero: '22',bairro:'bairrasso',cidade:'cidadao',estado:'sp',complemento:'asdasdasdasdasdads'}]);
+    const [userAddressList,setAddressList] = useState([]);
 
     const [currentAddress,setCurrentAddress] = useState('');
 
@@ -30,6 +32,8 @@ const Header = () => {
     const [debounceTimeout, setDebounceTimeout] = useState(null);
     const [searchAddresses,setSearchAddresses] = useState([]);
     const [query, setQuery] = useState('');
+
+    const [openUserModal,setOpenUserModal] = useState(false);
 
     const inputRef = useRef(null);
 
@@ -67,8 +71,7 @@ const Header = () => {
               return () => clearTimeout(timeout);
         }
       }, [query]);
-    
-    
+
     const handleGetLocation = () => {
         if (permissionStatus === 'granted') {
         getCurrentLocation();
@@ -163,7 +166,6 @@ const Header = () => {
             showMessage("error","Error fetching the address.");
         }
     };
-    
 
     const showMessage = (type, text) => {
         setMessage({ type, text });
@@ -184,7 +186,7 @@ const Header = () => {
           return newOpenSearch;
         });
       };
-    
+
     const handleSelectedAddress = (rua,bairro,cidade,estado) => {
         setStreet(rua);
         setNeighborhood(bairro);
@@ -197,13 +199,18 @@ const Header = () => {
         <>
         {message && <MessageComponent type={message.type} text={message.text} />}
         <header>
-            <img />
-            <button className="address-info" onClick={e=>{
-                handleGetLocation();
-                setOpenAddressModal(true)}}>
-                <span>{userAddress ? userAddress : "Sem endereço"}</span>
-                <i className='fa fa-angle-left'></i>
-            </button>
+            <img src="/assets/img/logo.png" alt="Logo do Rango"/>
+            <nav>
+                <button className="address-info" onClick={e=>{
+                    handleGetLocation();
+                    setOpenAddressModal(true)}}>
+                    <span>{userAddress ? userAddress : "Sem endereço"}</span>
+                    <i className='fa fa-angle-left'></i>
+                </button>
+                <div className='desktop-bar'>
+                    <button onClick={e=>setOpenUserModal(true)} className='perfil-btn'><i className='fa fa-user'></i></button>
+                </div>
+            </nav>
         </header>
         {openAddressModal &&
             <div onClick={e=>setOpenAddressModal(false)} className='background-shadow'>
@@ -310,6 +317,22 @@ const Header = () => {
                 </div>
             </div>
         }
+
+        {openUserModal && 
+            <div onClick={()=>setOpenUserModal(false)} className='background-modal'>
+                <div onClick={(e) => e.stopPropagation()}  className='user-modal'>
+                    <button onClick={()=>setOpenUserModal(false)} className='back-btn'><i className='fa fa-angle-left'></i></button>
+                    <h3>Olá,</h3>
+                    <nav>
+                        <Link to="/minha-conta/dados-cadastrais">
+                        <i className='fa fa-gear'></i>
+                        <span>Meus Dados</span>
+                        </Link>
+                    </nav>
+                </div>
+            </div>
+        }
+        <FooterBar setOpenUserModal={setOpenUserModal} openUserModal={openUserModal} />
         </>
     );
 };

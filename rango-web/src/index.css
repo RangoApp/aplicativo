@@ -2,12 +2,14 @@
     --color:#717171;
     --color-bold:#3e3e3e;
     --color-medium:#71714D;
+    --color-max: #222222;
     --color-lighter:#a6a5a5;
     --border:#c5c5c5;
     --bg-grey:#f2f2f2;
     --primaryColor: blue;
     --shadow:0 4px 16px rgba(0,0,0,.06);
     --shadow-top:0px -4px 20px 4px rgba(0,0,0,0.1);
+    --shadow-menu:0px 0px 16px 4px rgba(0,0,0,0.1);
     --error:#ee4c58
 }
 
@@ -37,8 +39,8 @@ input:focus-visible {
     border: none;
     background: transparent;
     position: absolute;
-    top:10px;
-    left:10px;
+    top:20px;
+    left:20px;
 }
 
 .back-btn i {

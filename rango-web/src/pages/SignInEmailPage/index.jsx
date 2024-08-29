@@ -4,10 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { fetchSignInMethodsForEmail, signInWithCustomToken, signInWithPhoneNumber, signInWithRedirect } from "firebase/auth";
 import { auth } from "../../config/FirebaseConfig";
 import MessageComponent from "../../components/MessageComponent";
+import LoadingCustom from "../../components/LoadingCustom";
 
 const SignInEmailPage = () => {
     
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [otpEmail,setOtpEmail] = useState('');
     const [emailInput,setEmailInput] = useState("");
     const [isValid, setIsValid ] = useState(false);
@@ -28,10 +29,6 @@ const SignInEmailPage = () => {
         var body = {
             email: emailInput
         }
-
-        // console.log(emailInput)
-        // const methods = await fetchSignInMethodsForEmail(auth,emailInput);
-        // console.log(methods)
         
         try {
             await api.post("/auth/sendEmailVerification",body);
@@ -89,9 +86,9 @@ const SignInEmailPage = () => {
                          /> 
                         <span></span>
                     </div>
-                <button style={{"pointerEvents":isValid ? "visible" : "none",
-                    "opacity":isValid? "1" : "0.6"
-                }} onClick={handleEmailSignIn}>Continuar</button>
+                <button style={{"pointerEvents":isValid && !isLoading ? "visible" : "none",
+                    "opacity":isValid && !isLoading ? "1" : "0.6"
+                }} onClick={handleEmailSignIn}>{isLoading ? <LoadingCustom/>:"Continuar"}</button>
             </div>
                 }
                 
@@ -99,7 +96,7 @@ const SignInEmailPage = () => {
                     <p>Digite o código de 6 dígitos que enviamos por E-mail para o</p>
                     <p className="phone-or-email-sign-in">{emailInput}</p>
                     <input value={otpEmail} onChange={e=>setOtpEmail(e.target.value)}/>
-                    <button onClick={handleEmailCodeVerification}>Verificar Código Email</button>
+                    <button style={{"opacity": !isLoading ? "1" : "0.6", "pointerEvents": !isLoading ? "visible":"none"}} onClick={handleEmailCodeVerification}>Verificar Código Email</button>
                 </div>}
                 
             </div>

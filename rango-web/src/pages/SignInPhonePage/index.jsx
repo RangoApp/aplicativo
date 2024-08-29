@@ -6,15 +6,16 @@ import api from "../../config/ApiConfig";
 import './SignInPhonePage.css';
 import MessageComponent from "../../components/MessageComponent";
 import { useAuth } from "../../components/AuthContext";
+import LoadingCustom from "../../components/LoadingCustom";
 
 const SignInPhonePage = () => {
 
-    const { setUser } = useAuth();
+    const { setUser,setIsAuthenticated } = useAuth();
     const [phoneNumber,setPhoneNumber] = useState('');
     const [otp,setOtp] = useState('');
     const [showOtpSection,setShowOTPSection] = useState(false);
     const [confirmationResult, setConfirmationResult]= useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const navigator = useNavigate();
     const [isValid, setIsValid ] = useState(true);
 
@@ -36,7 +37,9 @@ const SignInPhonePage = () => {
                     'callback': (res) => {
                         sendOTPCode()
                     },
-                    'expired-callback': () => {}
+                    'expired-callback': () => {
+                        showMessage("error","Erro de ReCAPTCH, por favor reinicie a página")
+                    }
                 }
             )
         }
@@ -49,7 +52,6 @@ const SignInPhonePage = () => {
             onVerifyRECaptcha();
             const appVerifier = window.recaptchaVerifier;
 
-            console.log(unformattedPhone)
             const confirmation = await linkWithPhoneNumber(auth.currentUser,unformattedPhone,appVerifier)
             setConfirmationResult(confirmation);
             setShowOTPSection(true);
@@ -102,26 +104,42 @@ const SignInPhonePage = () => {
         setPhoneNumber(formattedValue);
     };
 
+    const register = async () => {
+        try {
+            const res = await api.post("/auth/register");
+            const idRemember = res.data;
+            localStorage.setItem("idRemember",idRemember); 
+        } catch(e) {
+            await signOut(auth);
+            navigator("/entrar/1");
+        }
+    }
+
     const onOTPVerify = async () => {
         setIsLoading(true);
         try {
-          await confirmationResult.confirm(otp);
-          const currentUser = auth.currentUser;
-          const idToken = await currentUser.getIdToken(true);
-         
-          localStorage.setItem("refreshToken",currentUser.stsTokenManager.refreshToken);
-          localStorage.setItem("idToken", idToken);
-          localStorage.setItem("emailRemember",currentUser.email);
-      
-          var res = await api.post("/auth/register");
-          var idRemember = res.data;
-          localStorage.setItem("idRemember",idRemember); 
-            setUser(currentUser);
-          navigator("/home"); // Redireciona para a página inicial
-        } catch(e) {
-            await deleteUser(auth.currentUser);
+            await confirmationResult.confirm(otp);
             
-            navigator("/entrar/1");
+            const currentUser = auth.currentUser;
+            setUser(currentUser);
+            const idToken = await currentUser.getIdToken(true);
+            
+            localStorage.setItem("idToken", idToken);
+
+            await register();
+           
+            setIsAuthenticated(true);
+            localStorage.setItem("isAuthenticated",'true');
+            navigator("/home"); // Redireciona para a página inicial
+        } catch(e) {
+            if( e.message == "Firebase: Error (auth/invalid-verification-code)." ) {
+                showMessage("error","Erro: código inválido");
+            } else {
+                localStorage.clear();
+                await signOut(auth);
+                
+                navigator("/entrar/1");
+            }
         } finally {
           setIsLoading(false);
         }
@@ -140,7 +158,7 @@ const SignInPhonePage = () => {
                 <p>Informe o número do seu celular para continuar</p>
                 <div className="phone-number-wrapper">
                     <div className="country-area">
-                        <img />
+                        <img src="/assets/img/brazil.png" alt="brasil bandeira" width={30} height={30}/>
                         <p>+55</p>
                     </div>
                     <div className="phone-number-input-wrapper">
@@ -153,9 +171,9 @@ const SignInPhonePage = () => {
                         <span>{!isValid && "Número de celular inválido"}</span>
                     </div>
                     </div>
-                    <button style={{"pointerEvents":isValid && phoneNumber != '' ? "visible" : "none",
-                    "opacity":isValid && phoneNumber != ''? "1" : "0.6"
-                }} onClick={sendOTPCode}>Enviar Código</button>
+                    <button style={{"pointerEvents":(isValid && phoneNumber != '' && !isLoading)  ? "visible" : "none",
+                    "opacity":(isValid && phoneNumber != '' && !isLoading) ? "1" : "0.6"
+                }} onClick={sendOTPCode}>{isLoading ? <LoadingCustom/>:"Enviar Código"}</button>
                 </div> 
                 }
                
@@ -164,7 +182,7 @@ const SignInPhonePage = () => {
                     <p>Digite o código de 6 dígitos que enviamos por SMS para o</p>
                     <p className="phone-or-email-sign-in">{phoneNumber}</p>
                     <input type="number" maxLength={6} value={otp} onChange={e=> setOtp(e.target.value)}/>
-                    <button onClick={onOTPVerify}>Continuar</button>
+                    <button style={{"opacity": !isLoading ? "1" : "0.6", "pointerEvents": !isLoading ? "visible":"none"}} onClick={onOTPVerify}>{isLoading ? <LoadingCustom/> : "Continuar"}</button>
                 </div>
                 }
             </div>

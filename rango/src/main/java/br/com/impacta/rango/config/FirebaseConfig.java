@@ -3,23 +3,33 @@ package br.com.impacta.rango.config;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 
 @Configuration
 public class FirebaseConfig {
+	
+	@Value("${FIREBASE_CONFIG}")
+	private String firebaseConfig;
 
     @Bean
     public FirebaseApp initializeFirebase() throws IOException {
-    	 ClassPathResource resource = new ClassPathResource("rango-f7631-firebase-adminsdk-k5jv5-5307e5ba35.json");
+		Gson gson = new Gson();
+	    JsonObject jsonObject = gson.fromJson(firebaseConfig, JsonObject.class);
 
-        FirebaseOptions options = new FirebaseOptions.Builder()
-                .setCredentials(GoogleCredentials.fromStream(resource.getInputStream()))
-                .build();
+    	InputStream is = new ByteArrayInputStream(jsonObject.toString().getBytes());
+
+    	FirebaseOptions options = new FirebaseOptions.Builder()
+    	        .setCredentials(GoogleCredentials.fromStream((is)))
+    	        .build();
 
         return FirebaseApp.initializeApp(options);
     }

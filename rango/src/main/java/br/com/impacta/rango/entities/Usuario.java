@@ -81,6 +81,4 @@ public class Usuario {
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
 	}
-
-	
 }

@@ -1,13 +1,22 @@
 header {
     height: 80px;
     background-color: #fff;
-    box-shadow: var(--shadow);
+    border-bottom: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
+    padding: 0 20px;
 }
 
+header nav {
+    display: flex;
+    height: 100%;
+    gap: 16px;
+}
+
+header nav .desktop-bar {
+    display: flex;
+}
 .address-info {
     border: none;
     background: transparent;
@@ -25,6 +34,17 @@ header {
 .address-info span {
     color: var(--color-medium);
 }
+
+.perfil-btn {
+    border: none;
+    background: transparent;
+    color: var(--primaryColor);
+    font-size: 17px;
+}
+
+
+
+/* MODAL */
 
 .address-modal {
     overflow-y: auto;
@@ -303,6 +323,78 @@ header {
     font-size: 16px;
 }
 
+/* USER MODAL */
+.background-modal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top:0;
+    display: flex;
+    justify-content: flex-end;
+    z-index: 9999;
+}
+.user-modal {
+    overflow-y: auto;
+    position: relative;
+    top:0;
+    margin-right: 20px;
+    height: 75vh;
+    width: 320px;
+    border-radius: 4px;
+    color:var(--color-bold) ;
+    background: #fff;
+    box-shadow: var(--shadow-menu);
+    font-weight: bold;
+    font-size: 14px;
+    z-index: 99999;
+    animation: slideDownMenuUser 0.3s forwards; 
+}
+
+.user-modal h3 {
+    font-size: 1.5625rem;
+    font-weight: 500;
+    line-height: 31px;
+    letter-spacing: 1px;
+    padding: 30px 40px 20px;
+    margin: 0;
+    color: var(--color-max);
+}
+
+.user-modal nav {
+
+}
+
+.user-modal a {
+    padding: 10px 40px;
+    display: flex;
+    text-decoration: none;
+    color: var(--color);
+    align-items: center;
+    gap:20px;
+}
+
+.user-modal i {
+    font-size: 22px;
+}
+
+.user-modal a:hover {
+    color: var(--primaryColor);
+}
+
+.user-modal .back-btn {
+    display: none;
+}
+
+@keyframes slideDownMenuUser {
+    from {
+        top: 55px;
+    }
+    to {
+        top: 60px;
+    }
+}
+
 @keyframes slideDownMenu {
     from {
         top: -50px;
@@ -322,8 +414,32 @@ header {
 }
 
 @media only screen and (max-width: 750px) {
+    header {
+        justify-content: flex-start;
+        padding: 0 10px;
+    }
+    header nav .desktop-bar {
+        display: none;
+    }
    .close-modal {
     visibility: visible;
+   }
+
+   
+    .user-modal .back-btn {
+        display: flex;
+    }
+
+   .user-modal {
+        width: 100%;
+        margin-right: 0;
+        height: 100%;
+        animation: slideDownMenuMobile 0.4s ease-out;
+   }
+
+   .user-modal h3 {
+        text-align: center;
+        padding: 20px;
    }
     .address-modal {
         width: 100%;

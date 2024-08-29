@@ -5,11 +5,17 @@
     background: #fff;
     box-shadow: var(--shadow-top);
     bottom: 0;
-    display: flex;
     justify-content: space-around;
+    display: none;
+    z-index: 9999999999;
 }
 
-.footer-bar button {
+.footer-bar a {
+    text-decoration: none;
+}
+
+.footer-bar button, .footer-bar a {
+    color: var(--color);
     display: flex;
     flex-direction: column;
     align-self: center;
@@ -17,13 +23,27 @@
     gap: 6px;
     background: transparent;
     border: none;
+    transition: .2s ease;
 }
 
-.footer-bar button i {
+.footer-bar button i,
+.footer-bar a i {
     align-self: center;
 }
 
-.footer-bar button p {
+.footer-bar button p,
+.footer-bar a p {
     margin: 0;
     font-size: 12px;
+}
+
+.footer-bar button:hover,
+.footer-bar a:hover {
+    color: var(--color-max) !important;
+}
+
+@media only screen and (max-width: 750px) {
+    .footer-bar {
+        display: flex;
+    }
 }

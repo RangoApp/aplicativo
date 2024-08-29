@@ -12,15 +12,14 @@ const Home = () => {
             setId(localStorage.getItem("idRemember"));
         };
         getIdRemember();
-    });
+    },[]);
+
     const handleSignOut = async () => {
-        localStorage.clear();
         await signInOutCustom();
         return navigator("/");
     }
     return (
-    <>  
-        <Header />
+    <>
         <h1>Logado com sucesso</h1>
         <Link>Editar Usuário</Link>
         <button onClick={handleSignOut}>Sair</button>

@@ -1,23 +1,25 @@
+import { Link } from "react-router-dom";
+
 const EditarCadastro = () => {
     return (<>
 
     <div>
     <h1>Meus Dados</h1>
     <div>
-      <button onClick={() => alert('Informações Pessoais')}>
+      <Link to="/minha-conta/informacao-pessoais">
         Informações Pessoais
-      </button>
+      </Link>
     </div>
     <div>
-      <button onClick={() => alert('Dados de Contato')}>
+      <Link to="/minha-conta/dados-contato">
         Dados de Contato
-      </button>
+      </Link>
     </div>
-    <div>
-      <button onClick={() => alert('Credenciais')}>
+    {/* <div>
+      <Link to="">
         Credenciais
-      </button>
-    </div>
+      </Link>
+    </div> */}
   </div>
 </>
     )

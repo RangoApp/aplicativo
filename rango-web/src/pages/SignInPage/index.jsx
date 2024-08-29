@@ -23,11 +23,6 @@ const SignInPage = () => {
   };
 
   useEffect(() => {
-    // const user = auth.currentUser;
-    // if(user != null && user.emailVerified && user.phoneNumber != null) {
-    //   navigator('/home')
-    // }
-
     if(status == 1) {
       showMessage("error","Erro: Servidor Desligado")
     }
@@ -37,11 +32,9 @@ const SignInPage = () => {
       const provider = new GoogleAuthProvider();
       try {
         var result = await signInWithPopup(auth,provider)
-        console.log(result)
         navigator("/entrar/celular")
         
       } catch (error) {
-        console.error("Erro ao realizar o login", error);
         setIsLoading(false);
       }
   };
@@ -64,13 +57,14 @@ const SignInPage = () => {
       <div className="sign-in-page">
         <div id='recaptcha-container'></div>
         <div className="sign-in-options">
-          <h1>Falta pouco para<br/> matar sua fome!</h1>
+          <h1>Falta pouco para matar sua fome!</h1>
           <h2>Como deseja continuar?</h2>
-          {/* <button className="already-have-account" onClick={e=>setShowAlreadyHaveAccount(true)}>Já tenho uma conta</button> */}
-          <Link className="new-account" to="/entrar/email">E-mail</Link>
-          <div className="providers-section">
-            <button className="facebook-btn"><i className="fa-brands fa-facebook"></i>Continuar com Facebook</button>
-            <button className="google-btn" onClick={handleGoogleSignIn}><i className="fa-brands fa-google"></i>Continuar com Google</button>
+          <div className="options-wrapper">
+            <Link className="new-account" to="/entrar/email">E-mail</Link>
+            <div className="providers-section">
+              <button className="facebook-btn"><i className="fa-brands fa-facebook"></i>Continuar com Facebook</button>
+              <button className="google-btn" onClick={handleGoogleSignIn}><i className="fa-brands fa-google"></i>Continuar com Google</button>
+            </div>
           </div>
         </div>
     </div>
