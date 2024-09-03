@@ -123,14 +123,6 @@ header nav .desktop-bar {
     color: var(--color);
 }
 
-.current-place .street-wrapper {
-
-}
-
-.address-modal .search-address-wrapper input {
-
-}
-
 .background-shadow {
     position: fixed;
     background: rgba(0, 0, 0, 0.237);
@@ -140,7 +132,7 @@ header nav .desktop-bar {
     top:0;
     display: flex;
     justify-content: center;
-    z-index: 9999;
+    z-index: 99999999999999999;
 }
 
 .close-modal {
@@ -167,17 +159,6 @@ header nav .desktop-bar {
     background: red;
     height: 6rem;
 }
-
-.edit-address #back-btn-modal {
-    border: none;
-    background: transparent;
-    font-size: 19px;
-    top:19px;
-    left:17px;
-    color: var(--primaryColor);
-    position: absolute;
-}
-
 .edit-address input {
     box-sizing: border-box;
     width: 100%;
@@ -255,6 +236,7 @@ header nav .desktop-bar {
 .search-addresses {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 24px;
     margin-top: 24px;
     padding: 0 20px;
@@ -281,6 +263,12 @@ header nav .desktop-bar {
     gap: 24px;
     transition: .2s ease;
     position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.search-address-card-selecionado {
+    border: 1px solid var(--primaryColor);
 }
 
 .search-address-card i,
@@ -321,6 +309,33 @@ header nav .desktop-bar {
 
 .address-options i {
     font-size: 16px;
+}
+
+.address-options-actions {
+    padding: 8px 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    animation: slideDownOptions .3s forwards;
+}
+
+.address-options-actions button {
+    background: transparent;
+    border: none;
+}
+
+.address-options-actions i {
+    font-size: 18px;
+}
+
+@keyframes slideDownOptions {
+    from {
+        left: -20px;
+    }
+    to {
+        left: 0;
+    }
 }
 
 /* USER MODAL */
@@ -414,6 +429,9 @@ header nav .desktop-bar {
 }
 
 @media only screen and (max-width: 750px) {
+    .address-modal .title-address {
+        margin: 32px 0 10px 0;
+    }
     header {
         justify-content: flex-start;
         padding: 0 10px;
@@ -424,7 +442,6 @@ header nav .desktop-bar {
    .close-modal {
     visibility: visible;
    }
-
    
     .user-modal .back-btn {
         display: flex;
@@ -433,8 +450,12 @@ header nav .desktop-bar {
    .user-modal {
         width: 100%;
         margin-right: 0;
-        height: 100%;
+        height: 90vh;
         animation: slideDownMenuMobile 0.4s ease-out;
+   }
+
+   .user-modal nav {
+    padding-top: 20px;
    }
 
    .user-modal h3 {
@@ -443,7 +464,7 @@ header nav .desktop-bar {
    }
     .address-modal {
         width: 100%;
-        height: 100%;
+        height: 90vh;
         animation: slideDownMenuMobile 0.4s ease-out;
     }
 

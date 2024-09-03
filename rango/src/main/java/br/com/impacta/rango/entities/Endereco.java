@@ -23,6 +23,8 @@ public class Endereco {
 	@Column
 	private String cidade;
 	@Column
+	private String estado;
+	@Column
 	private String complemento;
 	@Column
 	private int numero;
@@ -34,6 +36,12 @@ public class Endereco {
 	private boolean semNumero;
 	@Column
 	private boolean semComplemento;
+	@Column
+	private boolean selecionado;
+	@Column
+	private boolean casa;
+	@Column
+	private boolean trabalho;
 	
 	@ManyToOne
     @JoinColumn(name = "idUsuario")
@@ -69,6 +77,16 @@ public class Endereco {
 
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
+	}
+	
+	
+
+	public boolean isSelecionado() {
+		return selecionado;
+	}
+
+	public void setSelecionado(boolean selecionado) {
+		this.selecionado = selecionado;
 	}
 
 	public String getComplemento() {
@@ -117,6 +135,14 @@ public class Endereco {
 
 	public void setSemComplemento(boolean semComplemento) {
 		this.semComplemento = semComplemento;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	public Usuario getUsuario() {

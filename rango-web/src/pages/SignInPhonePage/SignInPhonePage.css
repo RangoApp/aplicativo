@@ -68,6 +68,7 @@
 .phone-number-sign-in button
 ,.otp-phone-number-sign-in button
 ,.edit-address .save-btn
+,.map-wrapper .btn-map-confirm
 {
     cursor: pointer;
     width: 100%;
@@ -81,7 +82,8 @@
 
 .phone-number-sign-in button:hover
 ,.otp-phone-number-sign-in button:hover
-,.edit-address .save-btn:hover {
+,.edit-address .save-btn:hover
+,.map-wrapper .btn-map-confirm:hover {
     filter: brightness(0.9);
 }
 

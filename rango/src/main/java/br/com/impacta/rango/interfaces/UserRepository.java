@@ -1,12 +1,17 @@
 package br.com.impacta.rango.interfaces;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.impacta.rango.dto.EditUserRequestDTO;
+import br.com.impacta.rango.dto.EnderecoResponseDTO;
 import br.com.impacta.rango.dto.UserResponseDTO;
+import br.com.impacta.rango.entities.Endereco;
 import br.com.impacta.rango.entities.Usuario;
 
 @Service
@@ -35,14 +40,25 @@ public class UserRepository {
 		try {
 			Usuario user = repo.findById(idUsuario).orElseThrow();
 			if(user.getEmail().equals(email)) {
-				UserResponseDTO userDto = new UserResponseDTO(
-						user.getNomeCompleto(),
-						user.getEmail(),
-						user.getTelefone(),
-						user.getCpf()
-						);
-						
-				return userDto;
+				List<EnderecoResponseDTO> enderecoDTOs = user.getEnderecos().stream()
+			            .sorted(Comparator.comparing(Endereco::isSelecionado).reversed()) // Ordena por 'selecionado' (principal) primeiro
+			            .map(endereco -> new EnderecoResponseDTO(
+			                endereco.getLogradouro(),
+			                endereco.getNumero(),
+			                endereco.getBairro(),
+			                endereco.getCidade(),
+			                endereco.getEstado(),
+			                endereco.isSelecionado()
+			            ))
+			            .collect(Collectors.toList());
+
+	            return new UserResponseDTO(
+	                    user.getNomeCompleto(),
+	                    user.getEmail(),
+	                    user.getTelefone(),
+	                    user.getCpf(),
+	                    enderecoDTOs
+	            );
 			} 
 			return null;
 		} catch(NoSuchElementException e) {

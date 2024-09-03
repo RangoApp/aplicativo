@@ -1,0 +1,39 @@
+.edit-address-wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.edit-address-wrapper .back-btn {
+    z-index: 3;
+}
+.map-wrapper {
+    position: relative;
+    background-color: red;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+.map-wrapper .map-header {
+    z-index: 3;
+    width: 100%;
+    position: absolute;
+    top:0;
+    left:0;
+    right: 0;
+    height: 72px;
+    background: linear-gradient(#fff,90%,transparent) ;
+}
+
+.map-wrapper .back-btn {
+    
+}
+
+.map-wrapper .btn-map-confirm {
+    position: absolute;
+    box-sizing: border-box;
+    width: 95%;
+    bottom: 20px;
+}

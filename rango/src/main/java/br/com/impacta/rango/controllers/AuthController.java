@@ -8,6 +8,7 @@ import com.google.firebase.auth.UserRecord.CreateRequest;
 
 import br.com.impacta.rango.dto.EmailDTO;
 import br.com.impacta.rango.dto.RegisterUserDTO;
+import br.com.impacta.rango.dto.RegisterUserResponseDTO;
 import br.com.impacta.rango.entities.Usuario;
 import br.com.impacta.rango.interfaces.EmailOTPRepository;
 import br.com.impacta.rango.interfaces.IUserRepository;
@@ -28,7 +29,7 @@ public class AuthController {
 	private EmailOTPRepository emailRepo;
 
     @PostMapping("/register")
-    public ResponseEntity<Long> register(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<RegisterUserResponseDTO> register(@RequestHeader("Authorization") String token) {
         try {
         	 // Remover o prefixo 'Bearer ' do token
             String idToken = token.replace("Bearer ", "");
@@ -38,6 +39,8 @@ public class AuthController {
             UserRecord userRecord = FirebaseAuth.getInstance().getUser(uid);
             Usuario oldUser = repo.findByEmail(email);
             Long id = null;
+            
+            boolean hasEndereco = false;
             if(oldUser==null) {
             	Usuario newUser = new Usuario();
                 
@@ -48,9 +51,13 @@ public class AuthController {
                 id = user.getIdUsuario();
             } else {
             	id = oldUser.getIdUsuario();
+            	
+            	hasEndereco = !(oldUser.getEnderecos().isEmpty());
             }
             
-            return ResponseEntity.ok(id);
+            RegisterUserResponseDTO response = new RegisterUserResponseDTO(id,hasEndereco);
+            
+            return ResponseEntity.ok(response);
         } catch (FirebaseAuthException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }

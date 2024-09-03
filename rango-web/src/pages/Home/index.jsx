@@ -1,19 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import { signInOutCustom } from "../../config/FirebaseConfig";
 import { useEffect, useState } from "react";
-import Header from "../../components/Header";
-import FooterBar from "../../components/FooterBar";
+import api from "../../config/ApiConfig";
 
 const Home = () => {
     const navigator = useNavigate();
     const [id, setId] = useState(null);
-    useEffect(() => {
-        const getIdRemember = async () => {
-            setId(localStorage.getItem("idRemember"));
-        };
-        getIdRemember();
-    },[]);
 
+    
     const handleSignOut = async () => {
         await signInOutCustom();
         return navigator("/");

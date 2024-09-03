@@ -1,8 +1,10 @@
 import './LoadingCustom.css';
-const LoadingCustom = () => {
+const LoadingCustom = ({color=false}) => {
     return(
         <> 
-        <img id='loading-custom' src="/assets/svg/loading.svg" alt="Carregando" />
+        {color ?
+        <img id='loading-custom' src='/assets/svg/loading-color.svg' alt='Carregando'/>
+        : <img id='loading-custom' src="/assets/svg/loading.svg" alt="Carregando" />}
         </>
     )
 };

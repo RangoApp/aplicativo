@@ -47,7 +47,7 @@ public class UserController {
     		String idToken = token.replace("Bearer ", "");
 	        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
 	        UserResponseDTO user = repo.findUserById(id, decodedToken.getEmail());
-	        
+
 	        return ResponseEntity.ok(user);
     	}catch (FirebaseAuthException e) {
     		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);

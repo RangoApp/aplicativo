@@ -10,11 +10,13 @@ import EditarInformacoesPessoais from './pages/InformacoesPessoais';
 import { AuthProvider } from './components/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import SignInRoute from './components/SignInRoute';
+import { UserProvider } from './components/UserProvider';
 
 function App() {
   return (
     <>
     <AuthProvider>
+      <UserProvider>
       <Routes>
         <Route path='/' element={<SignInRoute component={<SignInPage/>} restricted={true} />}/>
         <Route path='/entrar/:status' element={<SignInRoute component={<SignInPage/>} restricted={true} />}/>
@@ -25,6 +27,7 @@ function App() {
         <Route path='/minha-conta/informacao-pessoais' element={<ProtectedRoute component={ <EditarInformacoesPessoais/>}/>}/>
         <Route path='/home' element={<ProtectedRoute component={<Home />} />}/>
       </Routes>
+      </UserProvider>
     </AuthProvider>
     </>
   );

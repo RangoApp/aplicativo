@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+
       const unsubscribe = onAuthStateChanged(auth,async (user) => {
         const storedAuthState = localStorage.getItem('isAuthenticated');
         if(storedAuthState === 'true') {
@@ -21,6 +22,7 @@ export const AuthProvider = ({ children }) => {
             // O usuário está autenticado no Firebase, mas você pode adicionar lógica para verificar a segunda etapa
             const isPhoneVerified = user.phoneNumber != null /* lógica para verificar se o telefone foi verificado */;
             if (isPhoneVerified) {
+              
               const idToken = await user.getIdToken(true);
               localStorage.setItem("idToken", idToken);
               setIsAuthenticated(true);
@@ -35,23 +37,7 @@ export const AuthProvider = ({ children }) => {
         }
         setIsLoading(false);
       });
-      
-    
-    // const unsubscribe = onAuthStateChanged(auth, async (user) => {
-    //   const emailRemember = localStorage.getItem("emailRemember");
-
-    //   if (user != null && emailRemember != null && user.emailVerified && user.phoneNumber != null && emailRemember === user.email) {
-    //     const idToken = await user.getIdToken(true);
-
-    //     localStorage.setItem("idToken", idToken);
-    //     setUser(user);
-    //   } else {
-    //     setUser(null);
-    //   }
-
-    //   setIsLoading(false);
-    // });
-
+  
     return () => unsubscribe();
   }, []);
 

@@ -1,6 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './FooterBar.css';
+import { useEffect } from 'react';
 const FooterBar = ({setOpenUserModal,openUserModal}) => {
+    const location = useLocation();
+    useEffect(() => {
+        setOpenUserModal(false);
+    },[location.pathname,setOpenUserModal]);
     return(
         <>
             <div className="footer-bar">

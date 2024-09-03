@@ -1,25 +1,36 @@
 import { deleteUser, fetchSignInMethodsForEmail, linkWithPhoneNumber, RecaptchaVerifier, signInWithPhoneNumber, signOut } from "firebase/auth";
 import { auth } from "../../config/FirebaseConfig";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../config/ApiConfig";
 import './SignInPhonePage.css';
 import MessageComponent from "../../components/MessageComponent";
 import { useAuth } from "../../components/AuthContext";
 import LoadingCustom from "../../components/LoadingCustom";
+import AddressModal from "../../components/AddressModal";
+import { useUser } from "../../components/UserProvider";
 
 const SignInPhonePage = () => {
-
+    const {fetchUser,user,noAddress}=useUser();
     const { setUser,setIsAuthenticated } = useAuth();
     const [phoneNumber,setPhoneNumber] = useState('');
     const [otp,setOtp] = useState('');
     const [showOtpSection,setShowOTPSection] = useState(false);
     const [confirmationResult, setConfirmationResult]= useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const navigator = useNavigate();
+    
     const [isValid, setIsValid ] = useState(true);
+    const [openAddressModal, setOpenAddressModal] = useState(false);
 
     const [message, setMessage] = useState(null);
+
+    const navigator = useNavigate();
+
+    useEffect(()=>{
+        localStorage.removeItem("idToken");
+        localStorage.removeItem("idRemember");
+        localStorage.removeItem("isAuthenticated");
+    },[])
 
     const showMessage = (type, text) => {
         setMessage({ type, text });
@@ -28,21 +39,24 @@ const SignInPhonePage = () => {
         }, 3000); // A mensagem desaparece após 3 segundos
     };
     const onVerifyRECaptcha = () => {
-        if(!window.recaptchaVerifier) {
-            window.recaptchaVerifier = new RecaptchaVerifier(
-                auth,
-                'recaptcha-container',
-                {
-                    'size': 'invisible',
-                    'callback': (res) => {
-                        sendOTPCode()
-                    },
-                    'expired-callback': () => {
-                        showMessage("error","Erro de ReCAPTCH, por favor reinicie a página")
+        setTimeout(() => {
+            const container = document.getElementById('recaptcha-container');
+            if(container && !window.recaptchaVerifier) {
+                window.recaptchaVerifier = new RecaptchaVerifier(
+                    auth,
+                    'recaptcha-container',
+                    {
+                        'size': 'invisible',
+                        'callback': (res) => {
+                            sendOTPCode()
+                        },
+                        'expired-callback': () => {
+                            showMessage("error","Erro de ReCAPTCH, por favor reinicie a página")
+                        }
                     }
-                }
-            )
-        }
+                )
+            }
+        } ,100);
     }
     const sendOTPCode = async () => {
         const unformattedPhone = `+55${phoneNumber.replace(/[()-\s]/g, '')}`;
@@ -66,7 +80,6 @@ const SignInPhonePage = () => {
                     setConfirmationResult(confirmationAlready);
                     setShowOTPSection(true)
                 }
-               
             } else {
                 showMessage("error","Erro de reCAPTCH: Por favor reinicie a página e tente novamente");
             }
@@ -75,7 +88,6 @@ const SignInPhonePage = () => {
             setIsLoading(false);
         }
     }
-
     const formatPhone = (value) => {
         // Remove tudo que não for número
         const cleaned = value.replace(/\D/g, '');
@@ -92,7 +104,6 @@ const SignInPhonePage = () => {
 
         return formatted;
     };
-
     const handleChange = (e) => {
         const rawValue = e.target.value;
         const formattedValue = formatPhone(rawValue);
@@ -103,18 +114,24 @@ const SignInPhonePage = () => {
         }
         setPhoneNumber(formattedValue);
     };
-
     const register = async () => {
         try {
             const res = await api.post("/auth/register");
-            const idRemember = res.data;
-            localStorage.setItem("idRemember",idRemember); 
+            if(res.status == 200) {
+                const idRemember = res.data.id;
+                localStorage.setItem("idRemember",idRemember);
+
+                await fetchUser();
+                return res.data.hasEndereco;
+            }
+            return false;
         } catch(e) {
+            localStorage.removeItem("idToken");
+            localStorage.removeItem("idRemember");
             await signOut(auth);
             navigator("/entrar/1");
         }
     }
-
     const onOTPVerify = async () => {
         setIsLoading(true);
         try {
@@ -126,11 +143,14 @@ const SignInPhonePage = () => {
             
             localStorage.setItem("idToken", idToken);
 
-            await register();
-           
-            setIsAuthenticated(true);
-            localStorage.setItem("isAuthenticated",'true');
-            navigator("/home"); // Redireciona para a página inicial
+            const hasAddress = await register();
+            if(!hasAddress) {
+                setOpenAddressModal(true);
+            } else {
+                setIsAuthenticated(true);
+                localStorage.setItem("isAuthenticated",'true');
+                navigator("/home"); // Redireciona para a página inicial
+            }
         } catch(e) {
             if( e.message == "Firebase: Error (auth/invalid-verification-code)." ) {
                 showMessage("error","Erro: código inválido");
@@ -147,6 +167,7 @@ const SignInPhonePage = () => {
 
     return(
         <>
+        {openAddressModal && <AddressModal setOpenAddressModal={setOpenAddressModal} openAddressModal={openAddressModal} />}
         {message && <MessageComponent type={message.type} text={message.text} />}
         <div id='recaptcha-container'></div>
         <div className="sign-in-phone-page">
