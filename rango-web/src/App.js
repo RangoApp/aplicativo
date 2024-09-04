@@ -11,6 +11,7 @@ import { AuthProvider } from './components/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import SignInRoute from './components/SignInRoute';
 import { UserProvider } from './components/UserProvider';
+import ListaRestaurantes from './pages/ListaRestaurantes';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path='/entrar/:status' element={<SignInRoute component={<SignInPage/>} restricted={true} />}/>
         <Route path='/entrar/celular' element={<SignInRoute component={<SignInPhonePage/>} restricted={true} />}/>
         <Route path='/entrar/email' element={<SignInRoute component={<SignInEmailPage/>} restricted={true} />}/>
+        <Route path='/restaurantes' element={<ProtectedRoute component={<ListaRestaurantes />} />} />
         <Route path='/minha-conta/dados-contato' element={<ProtectedRoute component={<DadosDeContato/>}/>}/>
         <Route path='/minha-conta/dados-cadastrais' element={<ProtectedRoute component={ <EditarCadastro/>}/>}/>
         <Route path='/minha-conta/informacao-pessoais' element={<ProtectedRoute component={ <EditarInformacoesPessoais/>}/>}/>

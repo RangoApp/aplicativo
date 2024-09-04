@@ -1,0 +1,12 @@
+.lista-restaurantes-slider {
+    display: flex;
+    gap:10px;
+    background: red;
+}
+
+.lista-restaurantes-slider-card {
+    width: 120px;
+    background: blue;
+    padding: 10px;
+    text-align: center;
+}
