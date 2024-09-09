@@ -27,7 +27,7 @@ function App() {
         <Route path='/minha-conta/dados-contato' element={<ProtectedRoute component={<DadosDeContato/>}/>}/>
         <Route path='/minha-conta/dados-cadastrais' element={<ProtectedRoute component={ <EditarCadastro/>}/>}/>
         <Route path='/minha-conta/informacao-pessoais' element={<ProtectedRoute component={ <EditarInformacoesPessoais/>}/>}/>
-        <Route path='/home' element={<ProtectedRoute component={<Home />} />}/>
+        <Route path='/home' element={<ProtectedRoute component={<ListaRestaurantes />} />}/>
       </Routes>
       </UserProvider>
     </AuthProvider>

@@ -48,11 +48,16 @@ public class UserRepository {
 			                endereco.getBairro(),
 			                endereco.getCidade(),
 			                endereco.getEstado(),
-			                endereco.isSelecionado()
+			                endereco.isSelecionado(),
+			                endereco.isCasa(),
+			                endereco.isTrabalho(),
+			                endereco.getLatitude(),
+			                endereco.getLongitude()
 			            ))
 			            .collect(Collectors.toList());
 
 	            return new UserResponseDTO(
+	            		user.getIdUsuario(),
 	                    user.getNomeCompleto(),
 	                    user.getEmail(),
 	                    user.getTelefone(),

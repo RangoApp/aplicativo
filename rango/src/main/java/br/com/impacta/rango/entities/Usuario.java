@@ -19,16 +19,16 @@ public class Usuario {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idUsuario;
 	
-	@Column(unique=true)
+	@Column(unique=true,length=64)
 	private String email;
 	
 	@Column
 	private String nomeCompleto;
 	
-	@Column(unique=true)
+	@Column(unique=true,length=14)
 	private String telefone;
 	
-	@Column(unique=true, nullable=true)
+	@Column(unique=true, nullable=true,length=11)
 	private String cpf;
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)

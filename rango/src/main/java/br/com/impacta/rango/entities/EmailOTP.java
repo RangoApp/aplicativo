@@ -2,6 +2,7 @@ package br.com.impacta.rango.entities;
 
 import java.sql.Timestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -11,7 +12,9 @@ import jakarta.persistence.Table;
 public class EmailOTP {
 
 	@Id
+	@Column(length=64)
 	private String email;
+	@Column(length=6)
 	private String code;
 	private Timestamp dtExpiration;
 	

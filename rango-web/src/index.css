@@ -1,12 +1,16 @@
 :root {
     --color:#717171;
     --color-bold:#3e3e3e;
+    --color-high:#414143;
     --color-medium:#71714D;
     --color-max: #222222;
     --color-lighter:#a6a5a5;
     --border:#c5c5c5;
+    --border-light:#ededed;
+    --border-medium:#dcdcdc;
     --bg-grey:#f2f2f2;
     --primaryColor: blue;
+    --primaryColor-light: rgb(83, 83, 255);
     --shadow:0 4px 16px rgba(0,0,0,.06);
     --shadow-top:0px -4px 20px 4px rgba(0,0,0,0.1);
     --shadow-menu:0px 0px 16px 4px rgba(0,0,0,0.1);
@@ -18,6 +22,11 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: sans-serif;
+}
+
+::selection {
+    background: var(--primaryColor);
+    color: #fff;
 }
 
 button {
@@ -48,3 +57,76 @@ input:focus-visible {
     font-size: 19px;
 }
 
+.cancel-btn,.save-btn {
+    text-decoration: none;
+    border-radius: 6px;
+    border: 1px solid var(--primaryColor);
+    padding: 0 20px;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: .2s;
+}
+
+.cancel-btn:hover {
+    background: var(--primaryColor);
+    color: #fff;
+}
+
+.cancel-btn {
+    color: var(--primaryColor);
+}
+
+.save-btn {
+    background: var(--primaryColor);
+    color: #fff;
+}
+
+.save-btn:hover {
+    background: var(--primaryColor-light);
+    border-color: var(--primaryColor-light);
+}
+
+
+.input-label-wrapper {
+    position: relative;
+}
+
+.input-label-wrapper input {
+    width: 100%;
+    box-sizing: border-box;
+    background: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+.input-label-wrapper label {
+    position: absolute;
+    top:0;
+    height: 10px;
+    display:flex;
+    align-items: center;
+    margin: auto;
+    transform: translateY(20px);
+    transition: .2s;
+    font-size: 1rem;
+    z-index: 0;
+    left: 14px;
+    color: var(--color-lighter);
+}
+
+.input-label-wrapper input:focus + label,
+.input-label-wrapper input:not(:placeholder-shown) + label {
+    transform: translateY(-10px);
+    font-size: .875rem;
+    background: #fff;
+    z-index: 1;
+    padding: 5px;
+}
+
+.input-label-wrapper[disabled] {
+    opacity: .5;
+    pointer-events: none;
+}

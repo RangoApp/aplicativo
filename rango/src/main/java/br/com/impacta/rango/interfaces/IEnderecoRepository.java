@@ -1,5 +1,8 @@
 package br.com.impacta.rango.interfaces;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +29,5 @@ public interface IEnderecoRepository extends JpaRepository<Endereco, Long>  {
     @Transactional
     @Query("UPDATE Endereco e SET e.selecionado = true WHERE e.idEndereco = :id")
     void marcarComoSelecionado(@Param("id") Long id);
+
 }

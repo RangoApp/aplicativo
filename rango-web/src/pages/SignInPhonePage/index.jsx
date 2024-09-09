@@ -1,4 +1,4 @@
-import { deleteUser, fetchSignInMethodsForEmail, linkWithPhoneNumber, RecaptchaVerifier, signInWithPhoneNumber, signOut } from "firebase/auth";
+import { linkWithPhoneNumber, RecaptchaVerifier, signInWithPhoneNumber, signOut } from "firebase/auth";
 import { auth } from "../../config/FirebaseConfig";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import { useAuth } from "../../components/AuthContext";
 import LoadingCustom from "../../components/LoadingCustom";
 import AddressModal from "../../components/AddressModal";
 import { useUser } from "../../components/UserProvider";
+import OTPInput from "../../components/OTPInput";
 
 const SignInPhonePage = () => {
     const {fetchUser,user,noAddress}=useUser();
@@ -39,24 +40,22 @@ const SignInPhonePage = () => {
         }, 3000); // A mensagem desaparece após 3 segundos
     };
     const onVerifyRECaptcha = () => {
-        setTimeout(() => {
-            const container = document.getElementById('recaptcha-container');
-            if(container && !window.recaptchaVerifier) {
-                window.recaptchaVerifier = new RecaptchaVerifier(
-                    auth,
-                    'recaptcha-container',
-                    {
-                        'size': 'invisible',
-                        'callback': (res) => {
-                            sendOTPCode()
-                        },
-                        'expired-callback': () => {
-                            showMessage("error","Erro de ReCAPTCH, por favor reinicie a página")
-                        }
+        if(!window.recaptchaVerifier) {
+            window.recaptchaVerifier = new RecaptchaVerifier(
+                auth,
+                'recaptcha-container',
+                {
+                    'size': 'invisible',
+                    'callback': (res) => {
+                        sendOTPCode()
+                    },
+                    'expired-callback': (e) => {
+                        console.log("expired-callback: " + e.toString())
+                        // showMessage("error","Erro de ReCAPTCH, por favor reinicie a página")
                     }
-                )
-            }
-        } ,100);
+                }
+            )
+        }
     }
     const sendOTPCode = async () => {
         const unformattedPhone = `+55${phoneNumber.replace(/[()-\s]/g, '')}`;
@@ -64,6 +63,9 @@ const SignInPhonePage = () => {
         setIsLoading(true);
         try {
             onVerifyRECaptcha();
+            if (!window.recaptchaVerifier) {
+                throw new Error("reCAPTCHA não foi inicializado corretamente");
+            }
             const appVerifier = window.recaptchaVerifier;
 
             const confirmation = await linkWithPhoneNumber(auth.currentUser,unformattedPhone,appVerifier)
@@ -71,17 +73,21 @@ const SignInPhonePage = () => {
             setShowOTPSection(true);
         } catch (e) {
             if (e.toString().indexOf("provider-already-linked") > 0 ) {
-
                 if(auth.currentUser.phoneNumber != unformattedPhone) {
                     showMessage("error","Erro: Número de telefone diferente do usuário cadastrado");
                 } else {
+                    if (!window.recaptchaVerifier) {
+                        throw new Error("reCAPTCHA não foi inicializado corretamente");
+                    }
                     const appVerifier = window.recaptchaVerifier;
                     const confirmationAlready = await signInWithPhoneNumber(auth,unformattedPhone,appVerifier);
                     setConfirmationResult(confirmationAlready);
                     setShowOTPSection(true)
                 }
+            } else if(e.toString().indexOf("auth/too-many-requests") > 0) {
+                showMessage("error","Erro: Cota de SMS do servidor atingido. Por favor volte amanhã");
             } else {
-                showMessage("error","Erro de reCAPTCH: Por favor reinicie a página e tente novamente");
+                showMessage("error","Erro: " + e.toString());
             }
             
         } finally {
@@ -202,7 +208,7 @@ const SignInPhonePage = () => {
                 <div className="otp-phone-number-sign-in">
                     <p>Digite o código de 6 dígitos que enviamos por SMS para o</p>
                     <p className="phone-or-email-sign-in">{phoneNumber}</p>
-                    <input type="number" maxLength={6} value={otp} onChange={e=> setOtp(e.target.value)}/>
+                    <OTPInput onChange={setOtp} />
                     <button style={{"opacity": !isLoading ? "1" : "0.6", "pointerEvents": !isLoading ? "visible":"none"}} onClick={onOTPVerify}>{isLoading ? <LoadingCustom/> : "Continuar"}</button>
                 </div>
                 }

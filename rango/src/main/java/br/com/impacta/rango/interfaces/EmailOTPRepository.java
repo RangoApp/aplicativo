@@ -59,7 +59,7 @@ public class EmailOTPRepository {
 			return true;
 		} catch (NoSuchElementException e) {
 			return false;
-		}	
+		}
 	}
 	
 	private String generateRandomCode() {

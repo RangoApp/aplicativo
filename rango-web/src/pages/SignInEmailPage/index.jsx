@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import api from "../../config/ApiConfig";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchSignInMethodsForEmail, signInWithCustomToken, signInWithPhoneNumber, signInWithRedirect } from "firebase/auth";
+import { signInWithCustomToken } from "firebase/auth";
 import { auth } from "../../config/FirebaseConfig";
 import MessageComponent from "../../components/MessageComponent";
 import LoadingCustom from "../../components/LoadingCustom";
+import OTPInput from "../../components/OTPInput";
 
 const SignInEmailPage = () => {
     
@@ -51,7 +52,7 @@ const SignInEmailPage = () => {
             await signInWithCustomToken(auth,result.data);
             navigator("/entrar/celular");
         } catch (e) {
-            console.log(e)
+            showMessage("error","Erro: código inválido")
         } finally {
             setIsLoading(false);
         }
@@ -95,8 +96,8 @@ const SignInEmailPage = () => {
                 {showOTPEmail && <div className="otp-phone-number-sign-in">
                     <p>Digite o código de 6 dígitos que enviamos por E-mail para o</p>
                     <p className="phone-or-email-sign-in">{emailInput}</p>
-                    <input value={otpEmail} onChange={e=>setOtpEmail(e.target.value)}/>
-                    <button style={{"opacity": !isLoading ? "1" : "0.6", "pointerEvents": !isLoading ? "visible":"none"}} onClick={handleEmailCodeVerification}>Verificar Código Email</button>
+                    <OTPInput onChange={setOtpEmail}/>
+                    <button style={{"opacity": !isLoading ? "1" : "0.6", "pointerEvents": !isLoading ? "visible":"none"}} onClick={handleEmailCodeVerification}>{isLoading ? <LoadingCustom /> : "Verificar Código Email"}</button>
                 </div>}
                 
             </div>

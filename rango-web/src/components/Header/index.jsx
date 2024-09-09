@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import './Header.css';
 import MessageComponent from '../MessageComponent';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import FooterBar from '../FooterBar';
 import AddressModal from '../AddressModal';
 import { useUser } from '../UserProvider';
+import { signInOutCustom } from '../../config/FirebaseConfig';
 
 const Header = ({children}) => {
     const { user,getSelecionado } = useUser();
@@ -13,7 +14,7 @@ const Header = ({children}) => {
     const [openAddressModal, setOpenAddressModal] = useState(false);
 
     const [openUserModal,setOpenUserModal] = useState(false);
-
+    const navigator = useNavigate();
    
     const [isLoading, setIsLoading] = useState(true);
 
@@ -31,6 +32,11 @@ const Header = ({children}) => {
             setMessage(null);
         }, 3000); // A mensagem desaparece após 3 segundos
     };
+
+    const handleSignOut = async () => {
+        await signInOutCustom();
+        return navigator("/");
+    }
     
     return(
         <>
@@ -55,12 +61,16 @@ const Header = ({children}) => {
             <div onClick={()=>setOpenUserModal(false)} className='background-modal'>
                 <div onClick={(e) => e.stopPropagation()}  className='user-modal'>
                     <button onClick={()=>setOpenUserModal(false)} className='back-btn'><i className='fa fa-angle-left'></i></button>
-                    <h3>{user.nomeCompleto ? `Olá, ${user.nomeCompleto}` : ""}</h3>
+                    <h3>{user?.nomeCompleto ? `Olá, ${user.nomeCompleto}` : ""}</h3>
                     <nav>
                         <Link to="/minha-conta/dados-cadastrais">
                         <i className='fa fa-gear'></i>
-                        <span>Meus Dados</span>
+                        <label>Meus Dados</label>
                         </Link>
+                        <button onClick={handleSignOut}>
+                        <i className='fa fa-arrow-right-to-bracket'></i>
+                        <label>Sair</label>
+                        </button>
                     </nav>
                 </div>
             </div>

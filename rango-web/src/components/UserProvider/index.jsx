@@ -18,10 +18,8 @@ export const UserProvider = ({ children }) => {
 
         if(idStorage) {
             try {
-                console.log(idStorage)
                 const res = await api.get("/users/" + idStorage);
                 if(res.status==200) {
-                   
                     const userApi = res.data;
                     setUser(userApi);
                     if(userApi.enderecos.length == 0) {

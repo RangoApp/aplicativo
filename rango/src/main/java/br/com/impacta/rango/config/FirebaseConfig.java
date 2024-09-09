@@ -17,11 +17,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FirebaseConfig {
 
-	@Value("${FIREBASE_CONFIG}")
-	private String firebaseConfig;
 	
     @Bean
     public FirebaseApp initializeFirebase() throws IOException {
+    	String firebaseConfig = "";
+
     	
 		Gson gson = new Gson();
 	    JsonObject jsonObject = gson.fromJson(firebaseConfig, JsonObject.class);

@@ -1,0 +1,50 @@
+.editar-cadastro-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editar-cadastro {
+    width: 100%;
+    max-width: 450px;
+    padding: 0 20px;
+}
+
+.editar-cadastro h2 {
+    color:var(--color-high);
+    font-weight: 500;
+    font-size: 1.5625rem;
+    margin: 40px 0;
+}
+
+.editar-cadastro nav a {
+    border-bottom: 1px solid var(--border-light);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+   padding: 16px 0;
+   position: relative;
+    transition: .2s ease;
+}
+
+.editar-cadastro nav a p {
+    margin: 0;
+    color: var(--color-lighter);
+}
+
+.editar-cadastro nav a p:first-child {
+    font-weight: 500;
+    color: var(--color-high);
+    margin-bottom: 5px;
+}
+
+.editar-cadastro nav a i {
+    position: absolute;
+    right: 0;
+    top:40%;
+    color: var(--primaryColor);
+}
+
+.editar-cadastro a:hover {
+    filter: brightness(.9);
+}

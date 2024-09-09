@@ -1,0 +1,30 @@
+.editar-cadastro-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.editar-cadastro-form input[type=text] {
+    border-radius: 4px;
+    color: var(--color-bold);
+    margin-bottom: 24px;
+    background: transparent;
+    height: auto;
+    font-size: 1rem;
+    line-height: 20px;
+    position: relative;
+    padding: 13px;
+    border: 1px solid var(--border-medium);
+}
+
+.editar-cadastro-form p {
+    margin:0;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--color);
+}
+
+.editar-cadastro .button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 14px
+}

@@ -1,0 +1,15 @@
+.dados-contato label{
+    color: var(--color);
+}
+
+.dados-contato p:first-child {
+    color: var(--color-high);
+}
+
+.dados-contato p {
+    margin: 0;
+    margin-top: 2px;
+    margin-bottom: 24px;
+    color: var(--color-lighter);
+    font-size: 13px;
+}

@@ -169,6 +169,11 @@ header nav .desktop-bar {
     height: 48px;
 }
 
+.edit-address-form .input-label-wrapper label{
+    font-weight: 500;
+    font-size: .9rem;
+}
+
 .input-group-1-4 {
     display: flex;
     width: 100%;
@@ -360,13 +365,13 @@ header nav .desktop-bar {
     color:var(--color-bold) ;
     background: #fff;
     box-shadow: var(--shadow-menu);
-    font-weight: bold;
     font-size: 14px;
     z-index: 99999;
     animation: slideDownMenuUser 0.3s forwards; 
 }
 
 .user-modal h3 {
+    font-weight: bold;
     font-size: 1.5625rem;
     font-weight: 500;
     line-height: 31px;
@@ -376,11 +381,9 @@ header nav .desktop-bar {
     color: var(--color-max);
 }
 
-.user-modal nav {
-
-}
-
-.user-modal a {
+.user-modal nav a,.user-modal nav button {
+    border: none;
+    background: transparent;
     padding: 10px 40px;
     display: flex;
     text-decoration: none;
@@ -389,11 +392,12 @@ header nav .desktop-bar {
     gap:20px;
 }
 
-.user-modal i {
+.user-modal nav i {
     font-size: 22px;
 }
 
-.user-modal a:hover {
+.user-modal nav a:hover,
+.user-modal nav button:hover {
     color: var(--primaryColor);
 }
 

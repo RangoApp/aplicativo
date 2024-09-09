@@ -37,6 +37,8 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
     const [searchAddresses,setSearchAddresses] = useState([]);
     const [query, setQuery] = useState('');
 
+    const [tipo,setTipo] = useState(0);
+    const [isLoaded,setIsLoaded] = useState(false);
     const [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -84,9 +86,7 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
         }, 3000); // A mensagem desaparece após 3 segundos
     };
     const handleGetLocation = () => {
-        
         if (permissionStatus === 'granted') {
-            
             getCurrentLocation();
         } else if (permissionStatus === 'prompt') {
         navigator.geolocation.getCurrentPosition(
@@ -99,9 +99,10 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
             (error) => handleError(error)
         );
         } else if (permissionStatus === 'denied') {
-            showMessage("error","Location access has been denied. Please enable it in your browser settings.");
+            showMessage("error","Por favor ative a localização para utilizar o aplicativo.");
         }
     };
+
     const getCurrentLocation = () => {
         navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -151,11 +152,11 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
                 var currentCountry = addressComponents.find(component => component.types.includes('country')).long_name;
 
                 setCurrentAddress(`${currentStreet} - ${currentNeigh}, ${currentCity} - ${currentState}`)
-            } else {
-                showMessage("error","Unable to retrieve address.");
-            }
+            } 
         } catch (error) {
-            showMessage("error","Error fetching the address.");
+            console.log(error)
+        } finally {
+            setIsLoaded(true);
         }
     };
 
@@ -171,7 +172,9 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
                         components:"country:BR"
                     }
                 });
+                console.log(response.data)
                 if (response.data.status === 'OK') {
+                    
                    setSearchAddresses(response.data.results);
                 } else {
                     showMessage("error","Unable to retrieve address.");
@@ -191,7 +194,6 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
         setCity(cidade);
         setState(estado);
         setNewLocation({latitude:latitude,longitude:longitude});
-
 
         setOpenEditAddress(true);
     }
@@ -227,7 +229,11 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
             estado:state,
             complemento:complemento,
             pontoReferencia:pontoRef,
-            idUsuario:idUser
+            idUsuario:idUser,
+            casa: tipo == 1,
+            trabalho: tipo == 2,
+            latitude: newLocation.latitude,
+            longitude: newLocation.longitude
         }
         try {
             const res = await api.post("/enderecos",body);
@@ -250,10 +256,11 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
 
     return(
         <>
-                {message && <MessageComponent type={message.type} text={message.text} />}
+        {message && <MessageComponent type={message.type} text={message.text} />}
+        
         <div onClick={handleVerifyAddress} className='background-shadow'>
                  <div onClick={e => e.stopPropagation()} className='address-modal'>
-                    
+                 {isLoaded ? <>
                     {!openEditAddress &&
                     <div className='address-list'>
                         <div className='address-list-header'>
@@ -284,10 +291,10 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
                                                 <button><i className='fa fa-edit'></i></button>
                                                 <button><i className='fa fa-trash'></i></button>
                                             </div>}
-                                            {!isOpen && <i className="fa-solid fa-location-dot"></i>}
+                                            {!isOpen && <i className={`fa-solid ${data.casa ? "fa-house" : data.trabalho ? "fa-briefcase" : "fa-location-dot"}`}></i>}
                                             <div className='street-wrapper'>
-                                                <p id='street'>{`${data.logradouro}, ${data.numero}`}</p>
-                                                <p id='state'>{`${data.bairro}, ${data.cidade} - ${data.estado}`}</p>
+                                                <p id='street'>{`${data.logradouro} ${data.numero ? ","+data.numero: ""}`}</p>
+                                                <p id='state'>{`${data.bairro ? data.bairro + ", " : ""} ${data.cidade ? data.cidade + " - " : ""} ${data.estado ? data.estado : ""}`}</p>
                                                 <p id='state'>{data.complemento}</p>
                                             </div>
                                             <button onClick={e=>setOpenOptions(isOpen ? null : key)} className='address-options'><i className="fa-solid fa-ellipsis-vertical"></i></button>
@@ -304,6 +311,8 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
                         {isLoading ? <LoadingCustom color={true} /> :<>
                             {
                                 searchAddresses.length > 0 && searchAddresses.map((data,key) => {
+                                    console.log(data);
+                                    var formatado = data.formatted_address;
                                     var addressComponents = data.address_components;
                                     var geometry = data.geometry.location;
                                     // Atualizando os estados com as partes do endereço
@@ -311,13 +320,13 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
                                     var bairro = addressComponents.find(component => component.types.includes('sublocality') || component.types.includes('neighborhood') || component.types.includes('administrative_area_level_4') )?.long_name;
                                     var cidade = addressComponents.find(component => component.types.includes('administrative_area_level_2'))?.long_name;
                                     var estado = addressComponents.find(component => component.types.includes('administrative_area_level_1'))?.short_name;
-                                    if(logradouro!=undefined&&bairro!=undefined&&cidade!=undefined&&estado!=undefined) {
+                                    if(formatado && logradouro) {
                                         return(
                                             <button onClick={e=>handleSelectedAddress(logradouro,bairro,cidade,estado,geometry.lat,geometry.lng)} key={key} className='search-address-card'>
                                                 <i className="fa-solid fa-location-dot"></i>
                                                 <div className='street-wrapper'>
                                                     <p id='street'>{logradouro}</p>
-                                                    <p id='state'>{`${bairro}, ${cidade} - ${estado}, Brasil`}</p>
+                                                    <p id='state'>{`${bairro ? bairro + ", " : ""} ${cidade ? cidade + " - ": ""} ${estado ? estado : ""}, Brasil`}</p>
                                                 </div>
                                             </button>
                                         );
@@ -348,23 +357,34 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
                             <div className='edit-address-form'>
                                 <div className='address-complete'>
                                     <p className='address-street'>{`${street}${number != '' ? `, ${number}` : ""} `}</p>
-                                    <p className='address-state'>{`${neighborhood}, ${city} - ${state}`}</p>
+                                    <p className='address-state'>{`${neighborhood ? neighborhood + ", " : ""} ${city ? city + " - " : ""} - ${state ? state : ""}`}</p>
                                 </div>
                                 
                                 <div className='input-group-1-4'>
-                                    <input id="number-input" value={number} onChange={e=>setNumber(e.target.value)}/>
+                                    <div className='input-label-wrapper'>
+                                        <input value={number} onChange={e=>setNumber(e.target.value)}/>
+                                        <label>Número</label>
+                                    </div>
+                                    
                                     <div className='complemento-wrapper'>
-                                        <input value={complemento} onChange={e=>setComplemento(e.target.value)} id="complemento-input" />
+                                        <div className='input-label-wrapper'>
+                                            <input value={complemento} onChange={e=>setComplemento(e.target.value)} />
+                                            <label>Complemento</label>
+                                        </div>
                                         <p>Apartamento/Bloco/Casa</p>
                                     </div>
                                 </div>
-                                <input value={pontoRef} onChange={e=>setPontoRef(e.target.value)} />
+                                <div className='input-label-wrapper'>
+                                    <input value={pontoRef} onChange={e=>setPontoRef(e.target.value)} />
+                                    <label>Ponto de referência</label>
+                                </div>
+                                
                                 <div className='address-type-wrapper'>
                                     <p>Favoritar como</p>
                                     <div className='address-type'>
                                         
-                                        <button className='type'>Casa</button>
-                                        <button className='type'>Trabalho</button>
+                                        <button onClick={e=>{if(tipo == 1) { setTipo(0) } else {setTipo(1)}}} style={{"border": tipo == 1 ? "1px solid var(--primaryColor)" : "1px solid transparent"}} className='type'>Casa</button>
+                                        <button onClick={e=>{if(tipo == 2) { setTipo(0) } else {setTipo(2)}}} style={{"border": tipo == 2 ? "1px solid var(--primaryColor)" : "1px solid transparent"}} className='type'>Trabalho</button>
                                     </div>
                                 </div>
                             
@@ -373,6 +393,10 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
                         </div>}
                     </div>
                     }
+                    </>
+                    : <div style={{"height":"100%","display":"flex","justifyContent":"center","alignItems":"center"}}><LoadingCustom color={true}/></div>
+                }
+                
                 </div>
             </div>
         </>

@@ -1,5 +1,7 @@
 package br.com.impacta.rango.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,10 +9,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="enderecos")
+@JsonIgnoreProperties({"restaurante"})
 public class Endereco {
 	
 	@Id
@@ -18,17 +22,17 @@ public class Endereco {
 	private Long idEndereco;
 	@Column
 	private String logradouro;
-	@Column
+	@Column(length = 100)
 	private String bairro;
-	@Column
+	@Column(length = 55)
 	private String cidade;
-	@Column
+	@Column(length = 2)
 	private String estado;
 	@Column
 	private String complemento;
 	@Column
 	private int numero;
-	@Column
+	@Column(length = 8)
 	private String cep;
 	@Column
 	private String pontoReferencia;
@@ -42,10 +46,16 @@ public class Endereco {
 	private boolean casa;
 	@Column
 	private boolean trabalho;
-	
+    private Double latitude;
+    private Double longitude;
+
 	@ManyToOne
-    @JoinColumn(name = "idUsuario")
+    @JoinColumn(name = "idUsuario", nullable=true)
     private Usuario usuario;
+	
+	@OneToOne
+    @JoinColumn(name = "idRestaurante", nullable=true)
+    private Restaurante restaurante;
 
 	public Long getIdEndereco() {
 		return idEndereco;
@@ -152,6 +162,47 @@ public class Endereco {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	public boolean isCasa() {
+		return casa;
+	}
+
+	public void setCasa(boolean casa) {
+		this.casa = casa;
+	}
+
+	public boolean isTrabalho() {
+		return trabalho;
+	}
+
+	public void setTrabalho(boolean trabalho) {
+		this.trabalho = trabalho;
+	}
+
+	public Restaurante getRestaurante() {
+		return restaurante;
+	}
+
+	public void setRestaurante(Restaurante restaurante) {
+		this.restaurante = restaurante;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+	
 	
 	
 }
