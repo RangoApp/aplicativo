@@ -5,30 +5,36 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "categoria")
+@Table(name = "categorias")
 public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nome_categoria;
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Long idCategoria;
+    private String nomeCategoria;
+    @OneToMany(mappedBy = "categorias", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Produto> produtos;
-    public Long getId() {
-        return id;
+
+    public Long getIdCategoria() {
+        return idCategoria;
     }
-    public void setId(Long id) {
-        this.id = id;
+
+    public void setIdCategoria(Long idCategoria) {
+        this.idCategoria = idCategoria;
     }
-    public String getNome_categoria() {
-        return nome_categoria;
+
+    public String getNomeCategoria() {
+        return nomeCategoria;
     }
-    public void setNome_categoria(String nome_categoria) {
-        this.nome_categoria = nome_categoria;
+
+    public void setNomeCategoria(String nomeCategoria) {
+        this.nomeCategoria = nomeCategoria;
     }
+
     public List<Produto> getProdutos() {
         return produtos;
     }
+
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
     }
