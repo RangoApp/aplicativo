@@ -43,6 +43,7 @@ public class UserRepository {
 				List<EnderecoResponseDTO> enderecoDTOs = user.getEnderecos().stream()
 			            .sorted(Comparator.comparing(Endereco::isSelecionado).reversed()) // Ordena por 'selecionado' (principal) primeiro
 			            .map(endereco -> new EnderecoResponseDTO(
+			            		endereco.getIdEndereco(),
 			                endereco.getLogradouro(),
 			                endereco.getNumero(),
 			                endereco.getBairro(),
@@ -52,7 +53,9 @@ public class UserRepository {
 			                endereco.isCasa(),
 			                endereco.isTrabalho(),
 			                endereco.getLatitude(),
-			                endereco.getLongitude()
+			                endereco.getLongitude(),
+			                endereco.getComplemento(),
+			                endereco.getPontoReferencia()
 			            ))
 			            .collect(Collectors.toList());
 

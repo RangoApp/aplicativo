@@ -22,6 +22,10 @@ public class Restaurante {
 	private String descrRes;
 	@Column(unique=true,length=14)
 	private String cnpj;
+	@Column
+	private CategoriaRestaurante categoria;
+	@Column
+	private Double precoMinimo;
 
 	@OneToOne(mappedBy = "restaurante", cascade = CascadeType.ALL)
 	private Endereco endereco;
@@ -64,6 +68,22 @@ public class Restaurante {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public CategoriaRestaurante getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(CategoriaRestaurante categoria) {
+		this.categoria = categoria;
+	}
+
+	public Double getPrecoMinimo() {
+		return precoMinimo;
+	}
+
+	public void setPrecoMinimo(Double precoMinimo) {
+		this.precoMinimo = precoMinimo;
 	}
 	
 	

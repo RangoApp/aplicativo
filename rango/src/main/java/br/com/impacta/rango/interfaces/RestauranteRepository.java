@@ -33,6 +33,8 @@ public class RestauranteRepository {
 		newRestaurante.setNomeRes(data.nomeRes());
 		newRestaurante.setDescrRes(data.descrRes());
 		newRestaurante.setCnpj(data.cnpj());
+		newRestaurante.setCategoria(data.categoria());
+		newRestaurante.setPrecoMinimo(data.precoMinimo());
 		
 		try {
 			resRepo.save(newRestaurante);
@@ -49,6 +51,8 @@ public class RestauranteRepository {
 			res.setNomeRes(data.nomeRes());
 			res.setDescrRes(data.descrRes());
 			res.setCnpj(data.cnpj());
+			res.setCategoria(data.categoria());
+			res.setPrecoMinimo(data.precoMinimo());
 			
 			resRepo.save(res);
 			return true;
@@ -74,7 +78,9 @@ public class RestauranteRepository {
 					res.getIdRestaurante(),
 					res.getNomeRes(),
 					res.getDescrRes(),
-					res.getCnpj());
+					res.getCnpj(),
+					res.getCategoria(),
+					res.getPrecoMinimo());
 		} catch(NoSuchElementException e) {
 			return null;
 		}

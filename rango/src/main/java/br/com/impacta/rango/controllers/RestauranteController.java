@@ -71,9 +71,9 @@ public class RestauranteController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não foi possível deletar o restaurante");	
 	}
 	
-	@GetMapping("/proximos")
-	public ResponseEntity<List<Restaurante>> findRestaurantesProximos(@RequestHeader("Authorization") String token,@RequestBody CoordenadasDTO coord) {
-        List<Restaurante> restaurantes = repo.findEnderecosRestaurantes(coord.lat(), coord.lng());
+	@GetMapping("/proximos/{latitude}/{longitude}")
+	public ResponseEntity<List<Restaurante>> findRestaurantesProximos(@RequestHeader("Authorization") String token,@PathVariable Double latitude,@PathVariable Double longitude) {
+        List<Restaurante> restaurantes = repo.findEnderecosRestaurantes(latitude, longitude);
         return ResponseEntity.ok(restaurantes);
 	}
 }

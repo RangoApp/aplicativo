@@ -36,6 +36,7 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
     const [debounceTimeout, setDebounceTimeout] = useState(null);
     const [searchAddresses,setSearchAddresses] = useState([]);
     const [query, setQuery] = useState('');
+    const [editIdAddress,setEditIdAddress] = useState(null);
 
     const [tipo,setTipo] = useState(0);
     const [isLoaded,setIsLoaded] = useState(false);
@@ -188,13 +189,17 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
         }
     };
 
-    const handleSelectedAddress = (logradouro,bairro,cidade,estado,latitude,longitude) => {
+    const handleSelectedAddress = (idEndereco,logradouro,bairro,cidade,estado,latitude,longitude,numero,complemento,pontoRef,tipo) => {
         setStreet(logradouro);
         setNeighborhood(bairro);
         setCity(cidade);
         setState(estado);
         setNewLocation({latitude:latitude,longitude:longitude});
-
+        setEditIdAddress(idEndereco ? idEndereco : null);
+        setNumber(numero);
+        setComplemento(complemento);
+        setPontoRef(pontoRef);
+        setTipo(tipo)
         setOpenEditAddress(true);
     }
 
@@ -236,13 +241,17 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
             longitude: newLocation.longitude
         }
         try {
-            const res = await api.post("/enderecos",body);
-            if(noAddress) {
-                setIsAuthenticated(true);
-                localStorage.setItem("isAuthenticated",'true');
-                
-                setNoAddress(false);
-                navigate("/home");
+            if(editIdAddress) {
+                const res = await api.put("/enderecos/" + editIdAddress,body);
+            } else {
+                const res = await api.post("/enderecos",body);
+                if(noAddress) {
+                    setIsAuthenticated(true);
+                    localStorage.setItem("isAuthenticated",'true');
+                    
+                    setNoAddress(false);
+                    navigate("/home");
+                }
             }
             await fetchUser();
             setOpenAddressModal(false);
@@ -251,6 +260,19 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
         } finally {
             setIsLoading(false);
         
+        }
+    }
+
+    const handleDeleteAddress = async (id) =>{
+        setIsLoading(true);
+        const idUser = localStorage.getItem("idRemember");
+        try {
+            const res = await api.delete("/enderecos/" + id)
+            await fetchUser();
+        } catch(e) {
+            showMessage("error","Não é possível remover endereço principal");
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -272,7 +294,7 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
                                 <input style={{"display":openSearch?"flex":"none"}}  value={query} onChange={e=>setQuery(e.target.value)} ref={inputRef} placeholder='Buscar endereço e número' />
                             </div>
 
-                            {!openSearch && currentAddress && <button onClick={e=>handleSelectedAddress(currentAddress.split(/[,-]/).map(part => part.trim())[0],currentAddress.split(/[,-]/).map(part => part.trim())[1],currentAddress.split(/[,-]/).map(part => part.trim())[2],currentAddress.split(/[,-]/).map(part => part.trim())[3],location.latitude,location.longitude )} className='current-place'>
+                            {!openSearch && currentAddress && <button onClick={e=>handleSelectedAddress(null,currentAddress.split(/[,-]/).map(part => part.trim())[0],currentAddress.split(/[,-]/).map(part => part.trim())[1],currentAddress.split(/[,-]/).map(part => part.trim())[2],currentAddress.split(/[,-]/).map(part => part.trim())[3],location.latitude,location.longitude,'','','',0 )} className='current-place'>
                                 <i className="fa-solid fa-location-crosshairs"></i>
                                 <div className='street-wrapper'>
                                     <p id="street">Usar localização atual</p>
@@ -288,8 +310,9 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
                                         return(
                                         <div key={key} className={`search-address-card ${data.selecionado ? 'search-address-card-selecionado' : ''}`}>
                                             {isOpen && <div className='address-options-actions'>
-                                                <button><i className='fa fa-edit'></i></button>
-                                                <button><i className='fa fa-trash'></i></button>
+                                                <button onClick={()=>handleSelectedAddress(data.idEndereco, data.logradouro,data.bairro,data.cidade,data.estado,data.latitude,data.longitude,data.numero,data.complemento,data.pontoReferencia,data.casa?1:data.trabalho?2:0)}
+                                                    ><i className='fa fa-edit'></i></button>
+                                                <button onClick={()=>handleDeleteAddress(data.idEndereco)}><i className='fa fa-trash'></i></button>
                                             </div>}
                                             {!isOpen && <i className={`fa-solid ${data.casa ? "fa-house" : data.trabalho ? "fa-briefcase" : "fa-location-dot"}`}></i>}
                                             <div className='street-wrapper'>
@@ -322,7 +345,7 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
                                     var estado = addressComponents.find(component => component.types.includes('administrative_area_level_1'))?.short_name;
                                     if(formatado && logradouro) {
                                         return(
-                                            <button onClick={e=>handleSelectedAddress(logradouro,bairro,cidade,estado,geometry.lat,geometry.lng)} key={key} className='search-address-card'>
+                                            <button onClick={e=>handleSelectedAddress(null,logradouro,bairro,cidade,estado,geometry.lat,geometry.lng,'','','',0)} key={key} className='search-address-card'>
                                                 <i className="fa-solid fa-location-dot"></i>
                                                 <div className='street-wrapper'>
                                                     <p id='street'>{logradouro}</p>
@@ -357,7 +380,7 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
                             <div className='edit-address-form'>
                                 <div className='address-complete'>
                                     <p className='address-street'>{`${street}${number != '' ? `, ${number}` : ""} `}</p>
-                                    <p className='address-state'>{`${neighborhood ? neighborhood + ", " : ""} ${city ? city + " - " : ""} - ${state ? state : ""}`}</p>
+                                    <p className='address-state'>{`${neighborhood ? neighborhood + ", " : ""} ${city ? city + " - " : ""} ${state ? state : ""}`}</p>
                                 </div>
                                 
                                 <div className='input-group-1-4'>

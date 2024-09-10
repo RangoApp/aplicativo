@@ -55,34 +55,22 @@ public class EnderecoController {
 	
 	@PutMapping("{id}")
 	ResponseEntity<String> editEndereco(@RequestHeader("Authorization") String token,@PathVariable Long id, @RequestBody RegisterEnderecoDTO data) {
-		try {
-    		String idToken = token.replace("Bearer ", "");
-	        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
-	        
-	        if(repo.editEndereco(id,data)) {
-	        	return ResponseEntity.ok("Endereço atualizado com sucesso");
-	        };
-          
-	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não foi possível cadastrar o endereço");
-    	} catch (FirebaseAuthException e) {
-    		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
-    	}
+        if(repo.editEndereco(id,data)) {
+        	return ResponseEntity.ok("Endereço atualizado com sucesso");
+        };
+      
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não foi possível cadastrar o endereço");
+    	
 	}
 	
 	@DeleteMapping("{id}")
-	ResponseEntity<String> deleteEndereco(@RequestHeader("Authorization") String token,@PathVariable Long id, @RequestBody RegisterEnderecoDTO data) {
-		try {
-    		String idToken = token.replace("Bearer ", "");
-	        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
-	        
-	        if(repo.removeEndereco(id)) {
-	        	return ResponseEntity.ok("Endereço atualizado com sucesso");
-	        };
-          
-	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não foi possível cadastrar o endereço");
-    	} catch (FirebaseAuthException e) {
-    		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
-    	}
+	ResponseEntity<String> deleteEndereco(@RequestHeader("Authorization") String token,@PathVariable Long id) {
+        if(repo.removeEndereco(id)) {
+        	return ResponseEntity.ok("Endereço atualizado com sucesso");
+        };
+      
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não foi possível cadastrar o endereço");
+
 	}
 	
 	

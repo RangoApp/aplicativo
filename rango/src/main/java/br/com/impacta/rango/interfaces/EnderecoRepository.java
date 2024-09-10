@@ -89,6 +89,8 @@ public class EnderecoRepository {
 		newEndereco.setUsuario(usuario);
 		newEndereco.setLatitude(data.latitude());
 		newEndereco.setLongitude(data.longitude());
+		newEndereco.setComplemento(data.complemento());
+		newEndereco.setPontoReferencia(data.pontoReferencia());
 		repo.save(newEndereco);
 		
 		return true;
@@ -119,6 +121,8 @@ public class EnderecoRepository {
 			newEndereco.setCasa(data.casa());
 			newEndereco.setTrabalho(data.trabalho());
 			newEndereco.setUsuario(usuario);
+			newEndereco.setComplemento(data.complemento());
+			newEndereco.setPontoReferencia(data.pontoReferencia());
 			repo.save(newEndereco);
 			
 			return true;		
@@ -130,6 +134,9 @@ public class EnderecoRepository {
 	public boolean removeEndereco(Long idEndereco) {
 		try {
 			Endereco newEndereco = repo.findById(idEndereco).orElseThrow();
+			if(newEndereco.isSelecionado()) {
+				return false;
+			}
 			repo.delete(newEndereco);;
 			
 			return true;		
