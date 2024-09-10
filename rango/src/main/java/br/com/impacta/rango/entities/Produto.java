@@ -3,41 +3,48 @@ package br.com.impacta.rango.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "produto")
+@Table(name = "produtos")
 public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nome_produto;
+    private Long idProduto;
+    private String nomeProduto;
     private Double preco;
-
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
-    private Categoria categoria;
-    public Long getId() {
-        return id;
+    @JoinColumn(name = "idCategoria")
+    private Categoria categorias;
+
+    public Long getIdProduto() {
+        return idProduto;
     }
-    public void setId(Long id) {
-        this.id = id;
+
+    public void setIdProduto(Long idProduto) {
+        this.idProduto = idProduto;
     }
-    public String getNome_produto() {
-        return nome_produto;
+
+    public String getNomeProduto() {
+        return nomeProduto;
     }
-    public void setNome_produto(String nome_produto) {
-        this.nome_produto = nome_produto;
+
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
     }
+
     public Double getPreco() {
         return preco;
     }
+
     public void setPreco(Double preco) {
         this.preco = preco;
     }
-    public Categoria getCategoria() {
-        return categoria;
+
+    public Categoria getCategorias() {
+        return categorias;
     }
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+
+    public void setCategorias(Categoria categorias) {
+        this.categorias = categorias;
     }
 }
 
