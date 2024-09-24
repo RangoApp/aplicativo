@@ -1,4 +1,4 @@
-package br.com.impacta.rango.interfaces;
+package br.com.impacta.rango.repositories;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -11,6 +11,9 @@ import br.com.impacta.rango.dto.RegisterEnderecoResDTO;
 import br.com.impacta.rango.entities.Endereco;
 import br.com.impacta.rango.entities.Restaurante;
 import br.com.impacta.rango.entities.Usuario;
+import br.com.impacta.rango.interfaces.IEnderecoRepository;
+import br.com.impacta.rango.interfaces.IRestauranteRepository;
+import br.com.impacta.rango.interfaces.IUserRepository;
 
 @Service
 public class EnderecoRepository {

@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseToken;
 
 import br.com.impacta.rango.dto.EditUserRequestDTO;
 import br.com.impacta.rango.dto.UserResponseDTO;
-import br.com.impacta.rango.interfaces.UserRepository;
+import br.com.impacta.rango.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

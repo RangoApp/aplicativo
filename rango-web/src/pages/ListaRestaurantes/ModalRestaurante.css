@@ -1,0 +1,88 @@
+.filter-restaurante-modal {
+    height: 360px;
+
+}
+
+.filter-restaurante-modal h3 {
+    text-align: center;
+    margin: 20px 0 4px 0;
+}
+
+.filter-restaurante-modal p {
+    text-align: center;
+    color:#717171;
+    font-weight: 400;
+    margin: 0;
+}
+
+
+.filter-ordenar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-row-gap: 20px;
+}
+
+.filter-restaurante-modal .filter-ordenar button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 72px;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    place-self: center;
+    color: #717171;
+    font-size: .7rem;
+}
+
+.filter-restaurante-modal .filter-ordenar button i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 72px;
+    height: 72px;
+    background: #fff;
+    border: 1px solid #dcdcdc;
+    border-radius: 50%;
+    margin-bottom: 12px;
+    transition: all .2s ease-out;
+}
+
+.filter-distancia {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+}
+
+.filter-distancia p {
+    text-align: center;
+    color: #444;
+}
+
+.filter-distancia input {
+
+}
+
+.range-slider {
+    width: 70%;
+    -webkit-appearance: none; /* Remover estilo padrão no Webkit */
+    height: 8px; /* Altura da barra */
+    border-radius: 5px; /* Bordas arredondadas */
+    outline: none; /* Remover contorno */
+    transition: background 0.3s ease-in-out; /* Transição suave para a barra */
+}
+
+/* Estilizando o thumb (botão deslizante) */
+.range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px; /* Largura do thumb */
+    height: 16px; /* Altura do thumb */
+    border-radius: 50%; /* Bordas arredondadas */
+    background: var(--primaryColor); /* Cor do thumb */
+    cursor: pointer; /* Cursor ao passar o mouse */
+}

@@ -1,5 +1,7 @@
 package br.com.impacta.rango.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -10,10 +12,18 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProduto;
     private String nomeProduto;
+    private String descricao;
     private Double preco;
+    
+    private String img;
     @ManyToOne
     @JoinColumn(name = "idCategoria")
     private Categoria categorias;
+    
+    @ManyToOne
+    @JoinColumn(name="idRestaurante",nullable=false)
+    @JsonIgnore
+    private Restaurante restaurante;
 
     public Long getIdProduto() {
         return idProduto;
@@ -46,5 +56,35 @@ public class Produto {
     public void setCategorias(Categoria categorias) {
         this.categorias = categorias;
     }
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Restaurante getRestaurante() {
+		return restaurante;
+	}
+
+	public void setRestaurante(Restaurante restaurante) {
+		this.restaurante = restaurante;
+	}
+	
+	
+	
+	
+    
+    
 }
 

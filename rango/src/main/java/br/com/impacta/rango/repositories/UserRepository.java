@@ -1,4 +1,4 @@
-package br.com.impacta.rango.interfaces;
+package br.com.impacta.rango.repositories;
 
 import java.util.Comparator;
 import java.util.List;
@@ -13,6 +13,7 @@ import br.com.impacta.rango.dto.EnderecoResponseDTO;
 import br.com.impacta.rango.dto.UserResponseDTO;
 import br.com.impacta.rango.entities.Endereco;
 import br.com.impacta.rango.entities.Usuario;
+import br.com.impacta.rango.interfaces.IUserRepository;
 
 @Service
 public class UserRepository {

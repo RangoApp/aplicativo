@@ -26,8 +26,8 @@ import br.com.impacta.rango.dto.RestauranteRegisterDTO;
 import br.com.impacta.rango.dto.RestauranteResponseDTO;
 import br.com.impacta.rango.entities.Endereco;
 import br.com.impacta.rango.entities.Restaurante;
-import br.com.impacta.rango.interfaces.EnderecoRepository;
-import br.com.impacta.rango.interfaces.RestauranteRepository;
+import br.com.impacta.rango.repositories.EnderecoRepository;
+import br.com.impacta.rango.repositories.RestauranteRepository;
 
 @RestController
 @RequestMapping("/restaurantes")

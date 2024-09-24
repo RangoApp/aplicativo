@@ -1,4 +1,4 @@
-package br.com.impacta.rango.interfaces;
+package br.com.impacta.rango.repositories;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -13,6 +13,7 @@ import br.com.impacta.rango.dto.UserResponseDTO;
 import br.com.impacta.rango.entities.Endereco;
 import br.com.impacta.rango.entities.Restaurante;
 import br.com.impacta.rango.entities.Usuario;
+import br.com.impacta.rango.interfaces.IRestauranteRepository;
 
 @Service
 public class RestauranteRepository {
@@ -80,7 +81,10 @@ public class RestauranteRepository {
 					res.getDescrRes(),
 					res.getCnpj(),
 					res.getCategoria(),
-					res.getPrecoMinimo());
+					res.getPrecoMinimo(),
+					res.getProdutos(),
+					res.getImg(),
+					res.getBanner());
 		} catch(NoSuchElementException e) {
 			return null;
 		}

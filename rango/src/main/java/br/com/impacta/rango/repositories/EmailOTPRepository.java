@@ -1,4 +1,4 @@
-package br.com.impacta.rango.interfaces;
+package br.com.impacta.rango.repositories;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.impacta.rango.config.EmailConfig;
 import br.com.impacta.rango.entities.EmailOTP;
+import br.com.impacta.rango.interfaces.IEmailOTPRepository;
 
 @Service
 public class EmailOTPRepository {

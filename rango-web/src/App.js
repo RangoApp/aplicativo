@@ -12,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import SignInRoute from './components/SignInRoute';
 import { UserProvider } from './components/UserProvider';
 import ListaRestaurantes from './pages/ListaRestaurantes';
+import Restaurante from './pages/Restaurante';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path='/minha-conta/dados-cadastrais' element={<ProtectedRoute component={ <EditarCadastro/>}/>}/>
         <Route path='/minha-conta/informacao-pessoais' element={<ProtectedRoute component={ <EditarInformacoesPessoais/>}/>}/>
         <Route path='/home' element={<ProtectedRoute component={<ListaRestaurantes />} />}/>
+        <Route path='/restaurante/:id' element={<ProtectedRoute component={<Restaurante />} />}/>
       </Routes>
       </UserProvider>
     </AuthProvider>

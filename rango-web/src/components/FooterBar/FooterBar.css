@@ -1,7 +1,8 @@
 .footer-bar {
     height: 60px;
     width: 100%;
-    position: fixed;
+    position: sticky;
+    bottom:0;
     background: #fff;
     box-shadow: var(--shadow-top);
     bottom: 0;

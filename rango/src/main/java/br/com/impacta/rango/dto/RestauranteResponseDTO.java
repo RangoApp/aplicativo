@@ -1,7 +1,10 @@
 package br.com.impacta.rango.dto;
 
-import br.com.impacta.rango.entities.CategoriaRestaurante;
+import java.util.List;
 
-public record RestauranteResponseDTO(Long idRestaurante, String nomeRes,String descrRes,String cnpj,CategoriaRestaurante categoria,Double precoMinimo) {
+import br.com.impacta.rango.entities.CategoriaRestaurante;
+import br.com.impacta.rango.entities.Produto;
+
+public record RestauranteResponseDTO(Long idRestaurante, String nomeRes,String descrRes,String cnpj,CategoriaRestaurante categoria,Double precoMinimo,List<Produto> produtos,String img,String banner) {
 
 }

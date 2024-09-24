@@ -1,0 +1,102 @@
+#banner {
+    width: 100%;
+    object-fit: cover;
+    height: 200px;
+    border-radius: 7px;
+}
+
+.restaurante-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0 20px 0;
+}
+
+.restaurante-header .title {
+    display: flex;
+    gap:10px;
+}
+
+.restaurante-header .info {
+    display: flex;
+    align-items: center;
+    gap:20px;
+}
+
+.restaurante-header .info button {
+    color: var(--primaryColor);
+    border: none;
+    background: transparent;
+    font-weight: 700;
+}
+
+.restaurante-header .info #divider {
+    background: #9d9d9d;
+    width: .5px;
+    height: 24px;
+}
+
+.restaurante-header .info #preco-minimo {
+    color: #939393;
+    font-size: 12px;
+    display: flex;
+    gap:10px
+}
+
+.restaurante-header .title h1 {
+    color: #3e3e3e;
+    font-weight: 400;
+}
+
+.restaurante-header .title img {
+    width: 70px;
+    height: 70px;
+    border-radius: 40px;
+}
+
+.restaurante-produtos {
+    grid-template-columns: repeat(auto-fill, minmax(max(320px, 33.3333333333% - 32px), 1fr));
+    display: grid;
+}
+
+.restaurante-produtos .card {
+    display: flex;
+    padding: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: .2s ease;
+    justify-content: space-between;
+    position: relative;
+    gap:10px;
+}
+
+.restaurante-produtos .card:hover {
+    box-shadow: var(--shadow);
+    scale: 1.02;
+}
+
+.restaurante-produtos .card img {
+    width: 160px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.restaurante-produtos .info {
+    display: flex;
+    flex-direction: column;
+}
+
+.restaurante-produtos .info p {
+    margin: 0;
+}
+.restaurante-produtos .info #nomeProduto {
+    margin-bottom: 10px;
+}
+.restaurante-produtos .info #descricao {
+    color: #838383;
+}
+
+.restaurante-produtos .info #preco {
+    position: absolute;
+    bottom: 20px;
+    color: #444;
+}

@@ -24,7 +24,7 @@ import br.com.impacta.rango.dto.EditUserRequestDTO;
 import br.com.impacta.rango.dto.RegisterEnderecoDTO;
 import br.com.impacta.rango.dto.RegisterEnderecoResDTO;
 import br.com.impacta.rango.entities.Endereco;
-import br.com.impacta.rango.interfaces.EnderecoRepository;
+import br.com.impacta.rango.repositories.EnderecoRepository;
 
 @RestController
 @RequestMapping("/enderecos")

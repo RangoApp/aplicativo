@@ -10,8 +10,8 @@ import br.com.impacta.rango.dto.EmailDTO;
 import br.com.impacta.rango.dto.RegisterUserDTO;
 import br.com.impacta.rango.dto.RegisterUserResponseDTO;
 import br.com.impacta.rango.entities.Usuario;
-import br.com.impacta.rango.interfaces.EmailOTPRepository;
 import br.com.impacta.rango.interfaces.IUserRepository;
+import br.com.impacta.rango.repositories.EmailOTPRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

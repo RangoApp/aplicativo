@@ -1,14 +1,147 @@
+.container-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1500px;
+    padding: 20px;
+}
+
+
+.lista-restaurantes-slider-wrapper {
+    position: relative;
+    display: flex;
+}
+
 .lista-restaurantes-slider {
     display: flex;
-    gap:10px;
+    width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    gap:20px;
+    white-space: nowrap;
+    padding: 10px;
+    margin: 0 48px;
 }
 
 .lista-restaurantes-slider-card {
-    width: 120px;
+    min-width: 100px;
+    border-radius: 6px;
     padding: 10px;
     text-align: center;
+    height: 72px;
+    cursor: pointer;
+    transition: .2s ease;
+    z-index: 1;
+    background: grey;
+}
+
+
+.lista-restaurantes-slider-card:hover {
+    scale: 1.02;
+}
+
+.slider-controls {
+    width: 100%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left:0;
+    right: 0;
+    top:0;
+    bottom: 0;
+    justify-content: space-between;
+}
+
+.slider-controls button {
+    border: none;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    display: flex;
+    transition: .3s ease;
+    align-items: center;justify-content: center;
+}
+
+.slider-controls button:hover {
+    background: rgba(0,0,0,1);
+}
+
+.lista-restaurantes-header {
+    display: flex;
+    gap:20px;
+    background: #fff;
+    position: sticky;
+    top:0;
+    padding: 10px 0;
+}
+.lista-restaurantes-header button {
+    height: 32px;
+    background: #fff;
+    border: 1px solid #dcdcdc;
+    border-radius: 16px;
+    padding: 5px 16px;
+    color: #717171;
+    cursor: pointer;
+    min-width: 5.375rem;
+}
+
+.lista-restaurantes-header button i {
+    margin-left: 4px;
+}
+
+.lista-restaurantes-header .active {
+    background: var(--primaryColor-light);
+    color: #fff;
+    border-color: var(--primaryColor-light);
 }
 
 .lista-restaurantes-map {
-    
+    grid-template-columns: repeat(auto-fill, minmax(max(320px, 33.3333333333% - 32px), 1fr));
+    display: grid;
 }
+
+.lista-restaurantes-map .card {
+    display: flex;
+    padding: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: .2s ease;
+    gap:10px;
+}
+
+.lista-restaurantes-map .card:hover {
+    box-shadow: var(--shadow);
+    scale: 1.02;
+}
+
+.lista-restaurantes-map .card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.lista-restaurantes-map .info {
+    display: flex;
+    flex-direction: column;
+}
+
+.lista-restaurantes-map .info p {
+    margin: 0;
+}
+
+
+.lista-restaurantes-map .subtitle,
+.lista-restaurantes-map .frete {
+    display: flex;
+    gap: 10px;
+    color: #747474;
+    font-size: .7rem;
+}
+
