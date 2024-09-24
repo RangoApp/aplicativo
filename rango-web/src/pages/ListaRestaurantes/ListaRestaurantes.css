@@ -145,3 +145,13 @@
     font-size: .7rem;
 }
 
+#ver-mais {
+    border: none;
+    background: transparent;
+    font-weight: 700;
+    color: var(--primaryColor);
+    text-align: center;
+    width: 100%;
+    margin: 10px 0;
+}
+

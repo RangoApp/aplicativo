@@ -3,6 +3,9 @@ package br.com.impacta.rango.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,11 +40,12 @@ public class RestauranteController {
 	private RestauranteRepository repo;
 	
 	@PostMapping
-	public ResponseEntity<String> saveRestaurantes(@RequestHeader("Authorization") String token,@RequestBody RestauranteRegisterDTO data) {
-        if(repo.saveRestaurante(data)) {
-        	return ResponseEntity.ok("Restaurante cadastrado com sucesso");	
+	public ResponseEntity<Long> saveRestaurantes(@RequestHeader("Authorization") String token,@RequestBody RestauranteRegisterDTO data) {
+		Long id = repo.saveRestaurante(data);
+        if(id != null) {
+        	return ResponseEntity.ok(id);	
         } 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Verificar dados do restaurante");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 	}
 	
 	@PutMapping("{id}")
@@ -71,9 +75,16 @@ public class RestauranteController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não foi possível deletar o restaurante");	
 	}
 	
-	@GetMapping("/proximos/{latitude}/{longitude}")
-	public ResponseEntity<List<Restaurante>> findRestaurantesProximos(@RequestHeader("Authorization") String token,@PathVariable Double latitude,@PathVariable Double longitude) {
-        List<Restaurante> restaurantes = repo.findEnderecosRestaurantes(latitude, longitude);
+	@GetMapping("/proximos/{latitude}/{longitude}/{pagina}")
+    public ResponseEntity<Page<Restaurante>> findRestaurantesProximos(
+            @RequestHeader("Authorization") String token,
+            @PathVariable Double latitude,
+            @PathVariable Double longitude,
+            @PathVariable int pagina) {
+
+        Pageable pageable = PageRequest.of(pagina, 20); // Cria o Pageable com a página e tamanho
+        Page<Restaurante> restaurantes = repo.findEnderecosRestaurantes(latitude, longitude, pageable);
+        
         return ResponseEntity.ok(restaurantes);
-	}
+    }
 }

@@ -276,6 +276,12 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
         }
     }
 
+    const handleNewSelected = async(data) => {
+        data.idUsuario = user.idUsuario;
+        await api.put("/enderecos/" + data.idEndereco,data);
+        window.location.reload();
+    }
+
     return(
         <>
         {message && <MessageComponent type={message.type} text={message.text} />}
@@ -315,7 +321,7 @@ const AddressModal = ({setOpenAddressModal,openAddressModal}) => {
                                                 <button onClick={()=>handleDeleteAddress(data.idEndereco)}><i className='fa fa-trash'></i></button>
                                             </div>}
                                             {!isOpen && <i className={`fa-solid ${data.casa ? "fa-house" : data.trabalho ? "fa-briefcase" : "fa-location-dot"}`}></i>}
-                                            <div className='street-wrapper'>
+                                            <div onClick={()=>{if(!data.selecionado) {handleNewSelected(data)}}} style={{"width":"80%"}} className='street-wrapper'>
                                                 <p id='street'>{`${data.logradouro} ${data.numero ? ","+data.numero: ""}`}</p>
                                                 <p id='state'>{`${data.bairro ? data.bairro + ", " : ""} ${data.cidade ? data.cidade + " - " : ""} ${data.estado ? data.estado : ""}`}</p>
                                                 <p id='state'>{data.complemento}</p>

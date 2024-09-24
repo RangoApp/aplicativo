@@ -17,6 +17,9 @@ const ListaRestaurantes = () => {
     const [entregaGratis,setEntregaGratis]=useState(false);
     const [sortBy,setSortBy]=useState("idRestaurante");
     const [distancia,setDistancia]=useState(30);
+    const [page,setPage]=useState(0);
+    const [loading, setLoading] = useState(false); 
+    const [last,setLast] = useState(false);// Estado de carregamento
     
     const navigator = useNavigate();
 
@@ -25,36 +28,46 @@ const ListaRestaurantes = () => {
         const enderecoSelecionado = user.enderecos.find(endereco => endereco.selecionado === true);
         setLocation({latitude:enderecoSelecionado.latitude,longitude:enderecoSelecionado.longitude});
     },[])
-    useEffect(()=>{
-        if(location.latitude && location.longitude) {
-            api.get(`/restaurantes/proximos/${location.latitude}/${location.longitude}`).then((response)=>{
+    useEffect(() => {
+        // Função para buscar restaurantes
+        const fetchRestaurantes = async () => {
+            if (location.latitude && location.longitude) {
+                setLoading(true); // Inicia o carregamento
+                try {
+                    const response = await api.get(`/restaurantes/proximos/${location.latitude}/${location.longitude}/${page}`);
+                    console.log(response)
+                    const result = response.data.content.map((restaurante) => {
+                        const distancia = haversineDistance(
+                            restaurante.endereco.latitude,
+                            restaurante.endereco.longitude,
+                            location.latitude,
+                            location.longitude
+                        );
 
-                const result = response.data.map((restaurante) => {
-                    const distancia = haversineDistance(
-                        restaurante.endereco.latitude,
-                        restaurante.endereco.longitude,
-                        location.latitude,
-                        location.longitude
-                    );
-    
-                    // Calcular o tempo e o frete baseado na distância
-                    const tempo = distancia * 60; // Exemplo de cálculo do tempo
-                    const tempoLimite = distancia * 180; // Exemplo de limite de tempo
-                    const frete = distancia * 3.99; // Exemplo de cálculo de frete
-    
-                    // Retorna o restaurante com as novas informações
-                    return {
-                        ...restaurante,
-                        distancia,
-                        tempo: tempo,
-                        tempoLimite: tempoLimite,
-                        frete: frete
-                    };
-                });
-                setRestaurantes(result);
-            });
-        }
-    },[location]);
+                        const tempo = distancia * 60; // Exemplo de cálculo do tempo
+                        const tempoLimite = distancia * 180; // Exemplo de limite de tempo
+                        const frete = distancia * 3.99; // Exemplo de cálculo de frete
+
+                        return {
+                            ...restaurante,
+                            distancia,
+                            tempo,
+                            tempoLimite,
+                            frete,
+                        };
+                    });
+                    setLast(response.data.last)
+                    setRestaurantes((prev) => [...prev, ...result]); // Adiciona novos restaurantes à lista
+                } catch (error) {
+                    console.error("Erro ao buscar restaurantes:", error);
+                } finally {
+                    setLoading(false); // Finaliza o carregamento
+                }
+            }
+        };
+
+        fetchRestaurantes(); // Chama a função para buscar restaurantes
+    }, [location, page]);
 
     const categorias = [
         {
@@ -136,7 +149,7 @@ const ListaRestaurantes = () => {
                             && (restaurante.distancia <= distancia)
                             ) {
                             return(
-                                <div onClick={()=>navigator("/restaurante/" + restaurante.idRestaurante)} className='card'>
+                                <div key={key} onClick={()=>navigator("/restaurante/" + restaurante.idRestaurante)} className='card'>
                                     <img src={restaurante.img} alt={"Logo do "+restaurante.nomeRes}/>
                                     <div className='info'>
                                         <p id='title'>{restaurante.nomeRes}</p>
@@ -153,6 +166,7 @@ const ListaRestaurantes = () => {
                         })
                     }
                 </div>
+                {!last && <button id='ver-mais' onClick={()=>setPage(prevPage => prevPage++)}>Ver mais</button>}
             </div>
           </div>
         </div>

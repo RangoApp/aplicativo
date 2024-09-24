@@ -23,7 +23,7 @@ const Restaurante = () => {
         <>
         <div className='container-wrapper'>
             <div className='container'>
-                <img id='banner' src={restaurante.img}/>
+                <img id='banner' src={restaurante.banner}/>
                 <div className='restaurante-header'>
                     <div className='title'>
                         <img src={restaurante.img}/>

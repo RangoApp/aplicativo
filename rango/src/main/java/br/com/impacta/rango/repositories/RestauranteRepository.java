@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.impacta.rango.dto.EnderecoResponseDTO;
@@ -21,27 +23,30 @@ public class RestauranteRepository {
 	@Autowired
 	private IRestauranteRepository resRepo;
 	
-	private static Double KM_LIMITE = 30.0;
+	private static Double KM_LIMITE = 100.0;
 	
-	public List<Restaurante> findEnderecosRestaurantes(Double lat, Double lng) {
+	public Page<Restaurante> findEnderecosRestaurantes(Double lat, Double lng,Pageable pageable) {
 		// Uso de KM_LIMITE no Hardcode para Restaurantes próximos;
-		List<Restaurante> enderecos = resRepo.buscaEnderecosProximos(lat,lng,KM_LIMITE);
+		Page<Restaurante> enderecos = resRepo.buscaEnderecosProximos(lat,lng,KM_LIMITE,pageable);
 		return enderecos;
 	}
 	
-	public boolean saveRestaurante(RestauranteRegisterDTO data) {
+	public Long saveRestaurante(RestauranteRegisterDTO data) {
 		Restaurante newRestaurante = new Restaurante();
 		newRestaurante.setNomeRes(data.nomeRes());
 		newRestaurante.setDescrRes(data.descrRes());
 		newRestaurante.setCnpj(data.cnpj());
 		newRestaurante.setCategoria(data.categoria());
 		newRestaurante.setPrecoMinimo(data.precoMinimo());
+		newRestaurante.setImg(data.img());
+		newRestaurante.setBanner(data.banner());
+		
 		
 		try {
-			resRepo.save(newRestaurante);
-			return true;
+			return resRepo.save(newRestaurante).getIdRestaurante();
+			
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 	}
 	
@@ -54,7 +59,8 @@ public class RestauranteRepository {
 			res.setCnpj(data.cnpj());
 			res.setCategoria(data.categoria());
 			res.setPrecoMinimo(data.precoMinimo());
-			
+			res.setImg(data.img());
+			res.setBanner(data.banner());
 			resRepo.save(res);
 			return true;
 		} catch(NoSuchElementException e) {

@@ -13,6 +13,7 @@ import SignInRoute from './components/SignInRoute';
 import { UserProvider } from './components/UserProvider';
 import ListaRestaurantes from './pages/ListaRestaurantes';
 import Restaurante from './pages/Restaurante';
+import Admin from './pages/Admin';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path='/minha-conta/informacao-pessoais' element={<ProtectedRoute component={ <EditarInformacoesPessoais/>}/>}/>
         <Route path='/home' element={<ProtectedRoute component={<ListaRestaurantes />} />}/>
         <Route path='/restaurante/:id' element={<ProtectedRoute component={<Restaurante />} />}/>
+        <Route path='/admin' element={<Admin />}/>
       </Routes>
       </UserProvider>
     </AuthProvider>

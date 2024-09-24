@@ -54,7 +54,6 @@ public class EnderecoRepository {
 			// se cair aqui irá verificar se é o exception do restaurante, se for irá retornar erro
 			// se for o exception do endereço, será criado pela primeira vez o endereço do restaurante
 			if(restaurante != null) {
-				System.out.println("caiu aqui");
 				Endereco newEndereco = new Endereco();
 				newEndereco.setLogradouro(data.logradouro());
 				newEndereco.setCep(data.cep());
