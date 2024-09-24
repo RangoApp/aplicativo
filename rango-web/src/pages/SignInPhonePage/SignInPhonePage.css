@@ -137,12 +137,20 @@
 
 @media only screen and (max-width: 960px) {
     .sign-in-phone-page{
-        padding: 0px;
-        align-items: flex-start;
+
+        overflow-x: hidden;
+        justify-content: flex-start;
+        flex-direction: column;
+        padding: 0;
+        gap:20px;
     }
     .sign-in-phone-page .sign-in-phone-container {
         padding: 32px 10px;
         width: 100%;
         box-shadow: none;
+    }
+
+    .phone-number-sign-in {
+        padding: 0 20px;
     }
 }
