@@ -55,7 +55,7 @@ const SignInPage = () => {
           </div>
         }
       <div className="sign-in-page">
-        <div id='recaptcha-container'></div>
+        <img id="rango-banner" src="/assets/img/rango-banner.jpeg"/>
         <div className="sign-in-options">
           <h1>Falta pouco para matar sua fome!</h1>
           <h2>Como deseja continuar?</h2>

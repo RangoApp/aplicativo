@@ -4,14 +4,22 @@
     align-items: center;
     padding: 0 12%;
     height: 100vh;
+    position: relative;
 }
 
+#rango-banner {
+    position: absolute;
+    left:0;
+    border-top-right-radius: 40%;
+    border-bottom-right-radius: 40%;
+}
 .sign-in-page button, .sign-in-page input, .sign-in-page a {
     width: 100%;
     cursor: pointer;
 }
 
 .sign-in-page .sign-in-options{
+    z-index: 2;
     width: 400px;
     background-color: white;
     display: flex;

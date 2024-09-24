@@ -42,7 +42,7 @@ const Header = ({children}) => {
         <>
         {message && <MessageComponent type={message.type} text={message.text} />}
         <header>
-            <Link to={"/home"}><img src="/assets/img/logo.png" alt="Logo do Rango"/></Link>
+            <Link className='logo' to={"/home"}><img src="/assets/img/rango-logo.png"/></Link>
             <nav>
                 <button className="address-info" onClick={e=>setOpenAddressModal(true)}>
                     <span>{getSelecionado ? `${getSelecionado.logradouro}, ${getSelecionado.numero}` : "Sem endereço"}</span>
@@ -61,7 +61,7 @@ const Header = ({children}) => {
             <div onClick={()=>setOpenUserModal(false)} className='background-modal'>
                 <div onClick={(e) => e.stopPropagation()}  className='user-modal'>
                     <button onClick={()=>setOpenUserModal(false)} className='back-btn'><i className='fa fa-angle-left'></i></button>
-                    <h3>{user?.nomeCompleto ? `Olá, ${user.nomeCompleto}` : ""}</h3>
+                    <h3>{user?.nomeCompleto ? `Olá, ${user.nomeCompleto.split(' ')[0]}` : ""}</h3>
                     <nav>
                         <Link to="/minha-conta/dados-cadastrais">
                         <i className='fa fa-gear'></i>

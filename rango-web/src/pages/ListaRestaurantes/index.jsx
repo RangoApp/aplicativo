@@ -194,16 +194,17 @@ const ListaRestaurantes = () => {
             </div>
         </div>}
         {openDistancia&&<div onClick={()=>setOpenDistancia(false)} className='background-shadow '>
-            <div onClick={e => e.stopPropagation()} className='address-modal filter-restaurante-modal'>
+            <div onClick={e => e.stopPropagation()} className='address-modal filter-restaurante-modal filter-restaurante-modal-distancia'>
                 <h3>Distância</h3>
                 <p>menos de {distancia}km</p>
                 <div className='filter-distancia'>
 
-                
-                <input className='range-slider' 
-                style={{
-                    background: `linear-gradient(to right, var(--primaryColor) ${distancia}%, #d3d3d3 ${distancia}%)`
-                }} type="range" onChange={(e)=>setDistancia(e.target.value)} min="1" max="100" value={distancia} />
+                    <span>0km</span>
+                    <input className='range-slider' 
+                    style={{
+                        background: `linear-gradient(to right, var(--primaryColor) ${distancia}%, #d3d3d3 ${distancia}%)`
+                    }} type="range" onChange={(e)=>setDistancia(e.target.value)} min="1" max="100" value={distancia} />
+                    <span>100km</span>
                 </div>
             </div>
         </div>}

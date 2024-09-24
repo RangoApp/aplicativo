@@ -177,6 +177,7 @@ const SignInPhonePage = () => {
         {message && <MessageComponent type={message.type} text={message.text} />}
         <div id='recaptcha-container'></div>
         <div className="sign-in-phone-page">
+        <img id="rango-banner" src="/assets/img/rango-banner.jpeg"/>
             <div className="sign-in-phone-container">
                 <Link to="/" className="back-btn"><i className="fa fa-angle-left"></i></Link>
                 {!showOtpSection &&

@@ -6,6 +6,10 @@
     z-index: 99999;
 }
 
+.filter-restaurante-modal-distancia {
+    height: 240px;
+}
+
 .filter-restaurante-modal h3 {
     text-align: center;
     margin: 20px 0 4px 0;
@@ -61,6 +65,21 @@
     align-items: center;
 }
 
+.filter-distancia span {
+    position: absolute;
+    margin-bottom: 36px;
+    font-weight: 400;
+}
+
+.filter-distancia span:first-child {
+    left: 32px;
+}
+
+.filter-distancia span:last-child {
+    right: 32px;
+}
+
+
 .filter-distancia p {
     text-align: center;
     color: #444;
@@ -71,7 +90,7 @@
 }
 
 .range-slider {
-    width: 70%;
+    width: 90%;
     -webkit-appearance: none; /* Remover estilo padrão no Webkit */
     height: 8px; /* Altura da barra */
     border-radius: 5px; /* Bordas arredondadas */
