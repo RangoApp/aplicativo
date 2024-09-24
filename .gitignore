@@ -1,3 +1,2 @@
 /.metadata/
-rango-web/src/main/resources/*.json
-rango-web/src/main/java/br/com/impacta/rango/config/FirebaseConfig.java
+/rango/src/main/java/br/com/impacta/resources/*.json

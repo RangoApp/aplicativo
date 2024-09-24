@@ -1,0 +1,84 @@
+[33mcommit 70874a7afd00f49187a2b3c6a124f0856217b650[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: yoshinolucas <lucasyudi7@gmail.com>
+Date:   Tue Sep 24 08:22:30 2024 -0300
+
+    fix
+
+[33mcommit 27feb8917f9db6cc72b5365ace5bf769cc628557[m
+Merge: 69f933c d512eee
+Author: yoshinolucas <lucasyudi7@gmail.com>
+Date:   Tue Sep 10 18:44:07 2024 -0300
+
+    Merge branch 'main' of https://github.com/RangoApp/application
+
+[33mcommit 69f933cf155858bd74472a0607e587120527841c[m
+Author: yoshinolucas <lucasyudi7@gmail.com>
+Date:   Tue Sep 10 18:44:04 2024 -0300
+
+    restaurantes v1
+
+[33mcommit d512eee9382981632f9131445dabde89eb610673[m
+Author: Fernando Moreno <fernando.morenofernandess@gmail.com>
+Date:   Mon Sep 9 11:12:26 2024 -0300
+
+    Fernando -> Removendo .idea do repositório
+
+[33mcommit ffbae5cde1b3fda00ce105e5a8a632b8f9d59cc2[m
+Author: Fernando Moreno <fernando.morenofernandess@gmail.com>
+Date:   Mon Sep 9 11:08:48 2024 -0300
+
+    Fernando -> Refatorando nome das entidades
+
+[33mcommit acd467070b4105692244b67a52528f0a74b84b43[m
+Author: yoshinolucas <lucasyudi7@gmail.com>
+Date:   Mon Sep 9 03:59:04 2024 -0300
+
+    CRUD restaurantes v1 Homolog - Antes de testes no frontend
+
+[33mcommit 54ab12510b5148495ca34e7c43c33b9fd4fe7ef5[m
+Author: Fernando Moreno <fernando.morenofernandess@gmail.com>
+Date:   Sun Sep 8 20:08:59 2024 -0300
+
+    Fernando -> Criando Entity Produto
+
+[33mcommit 7aa15f7add7c873d78d7e7aad3656a52ad298d41[m
+Author: yoshinolucas <lucasyudi7@gmail.com>
+Date:   Tue Sep 3 21:21:57 2024 -0300
+
+    criar tela lista de restaurantes
+
+[33mcommit 88db6072afabdffb0a97cb0f477f25fc96f23bef[m
+Author: yoshinolucas <lucasyudi7@gmail.com>
+Date:   Tue Sep 3 17:22:58 2024 -0300
+
+    api maps | api render component | user context hook
+
+[33mcommit 9c66adf3f0bbe2fbac82c636454a72faa63b9a33[m
+Author: yoshinolucas <lucasyudi7@gmail.com>
+Date:   Tue Sep 3 17:15:08 2024 -0300
+
+    api maps, render maps, user context
+
+[33mcommit b0052442945a2c41c0941da36fc8aa41f1308150[m
+Author: yoshinolucas <lucasyudi7@gmail.com>
+Date:   Thu Aug 29 13:33:25 2024 -0300
+
+    footer bar com funcionalidade de hover e current local | backend deploy prod | mudanças de context de autenticação fix
+
+[33mcommit cf41d60c898950ce06464e3b0a31af4136fe01ce[m
+Author: yoshinolucas <lucasyudi7@gmail.com>
+Date:   Tue Aug 27 23:57:28 2024 -0300
+
+    uso de context e hooks globais para gerenciamento de rotas autenticadas | funcionalidade api do google maps iniciada | footer bar adicionado | inserido telas iniciais de edição da conta
+
+[33mcommit 4eeb4ddd3b037838043f2b5ba25463fc18b041ee[m
+Author: yoshinolucas <lucasyudi7@gmail.com>
+Date:   Mon Aug 26 23:52:08 2024 -0300
+
+    gitignore modificado
+
+[33mcommit 139f8a62695785948820f0eee493740a2d439493[m
+Author: yoshinolucas <lucasyudi7@gmail.com>
+Date:   Mon Aug 26 23:47:08 2024 -0300
+
+    first

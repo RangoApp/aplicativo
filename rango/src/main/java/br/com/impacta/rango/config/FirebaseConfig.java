@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -20,16 +21,10 @@ public class FirebaseConfig {
 	
     @Bean
     public FirebaseApp initializeFirebase() throws IOException {
-    	String firebaseConfig = "";
-
-    	
-		Gson gson = new Gson();
-	    JsonObject jsonObject = gson.fromJson(firebaseConfig, JsonObject.class);
-
-    	InputStream is = new ByteArrayInputStream(jsonObject.toString().getBytes());
+        FileInputStream serviceAccount = new FileInputStream("src/main/resources/rango-firebase.json");
 
     	FirebaseOptions options = new FirebaseOptions.Builder()
-    	        .setCredentials(GoogleCredentials.fromStream((is)))
+    	        .setCredentials(GoogleCredentials.fromStream((serviceAccount)))
     	        .build();
 
         return FirebaseApp.initializeApp(options);
