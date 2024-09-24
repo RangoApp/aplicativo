@@ -1,5 +1,6 @@
 package br.com.impacta.rango.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -55,6 +56,7 @@ public class Endereco {
 	
 	@OneToOne
     @JoinColumn(name = "idRestaurante", nullable=true)
+	@JsonIgnore
     private Restaurante restaurante;
 
 	public Long getIdEndereco() {

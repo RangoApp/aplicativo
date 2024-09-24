@@ -22,6 +22,7 @@ public class ProdutoRepository {
 		newProduto.setNomeProduto(data.nomeProduto()); 
 		newProduto.setDescricao(data.descricao());
 		newProduto.setImg (data.img());
+		newProduto.setPreco(data.preco());
 		try {
 			Restaurante restaurante = resRepo.findById(data.idRestaurante()).orElseThrow();
 			newProduto.setRestaurante(restaurante); 

@@ -442,6 +442,7 @@ header nav .desktop-bar {
     header {
         justify-content: flex-start;
         padding: 0 10px;
+        position: relative;
     }
     header nav .desktop-bar {
         display: none;

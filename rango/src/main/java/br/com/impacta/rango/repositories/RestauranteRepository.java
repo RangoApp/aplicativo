@@ -90,7 +90,8 @@ public class RestauranteRepository {
 					res.getPrecoMinimo(),
 					res.getProdutos(),
 					res.getImg(),
-					res.getBanner());
+					res.getBanner(),
+					res.getEndereco());
 		} catch(NoSuchElementException e) {
 			return null;
 		}

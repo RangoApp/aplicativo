@@ -18,6 +18,7 @@ const ListaRestaurantes = () => {
     const [sortBy,setSortBy]=useState("idRestaurante");
     const [distancia,setDistancia]=useState(30);
     const [page,setPage]=useState(0);
+    const [currentPage,setCurrentPage]=useState(null);
     const [loading, setLoading] = useState(false); 
     const [last,setLast] = useState(false);// Estado de carregamento
     
@@ -31,11 +32,10 @@ const ListaRestaurantes = () => {
     useEffect(() => {
         // Função para buscar restaurantes
         const fetchRestaurantes = async () => {
-            if (location.latitude && location.longitude) {
+            if (location.latitude && location.longitude && currentPage != page) {
                 setLoading(true); // Inicia o carregamento
                 try {
                     const response = await api.get(`/restaurantes/proximos/${location.latitude}/${location.longitude}/${page}`);
-                    console.log(response)
                     const result = response.data.content.map((restaurante) => {
                         const distancia = haversineDistance(
                             restaurante.endereco.latitude,
@@ -56,7 +56,8 @@ const ListaRestaurantes = () => {
                             frete,
                         };
                     });
-                    setLast(response.data.last)
+                    setLast(response.data.last);
+                    setCurrentPage(page);
                     setRestaurantes((prev) => [...prev, ...result]); // Adiciona novos restaurantes à lista
                 } catch (error) {
                     console.error("Erro ao buscar restaurantes:", error);
@@ -140,7 +141,7 @@ const ListaRestaurantes = () => {
                     <button className={entregaGratis? "active":""} onClick={()=>setEntregaGratis(!entregaGratis)}>Entrega Grátis</button>
                     <button onClick={()=>setOpenDistancia(true)}>Distância<i className='fa fa-angle-down'></i></button>
                 </div>
-                <h3>Lojas</h3>
+                <h3 id='title'>Lojas</h3>
                 <div className='lista-restaurantes-map'>
                     {
                         restaurantes.length>0&&restaurantes.map((restaurante,key)=>{
@@ -154,12 +155,14 @@ const ListaRestaurantes = () => {
                                     <div className='info'>
                                         <p id='title'>{restaurante.nomeRes}</p>
                                         <div className='subtitle'>
-                                            <p>{restaurante.categoria}</p>
+                                            <p>{restaurante.categoria.substring(0,1) + restaurante.categoria.substring(1).toLowerCase()}</p>
+                                            <p>•</p>
                                             <p>{restaurante.distancia.toFixed(1) + "km"}</p>
                                         </div>
                                         <div className='frete'>
-                                            <p>{`${restaurante.tempo.toFixed(0)}-${restaurante.tempoLimite.toFixed(0)} min . ${restaurante.frete <= 2 ? "Grátis" : "R$" + restaurante.frete.toFixed(2)}`}</p>
+                                            <p>{`${restaurante.tempo.toFixed(0)}-${restaurante.tempoLimite.toFixed(0)} min •`}<span style={{marginLeft:"4px",color:restaurante.frete<=2?"var(--success)":"#747474"}}>{restaurante.frete <= 2 ? "Grátis" : "R$" + restaurante.frete.toFixed(2)}</span></p>
                                         </div>
+                                        <div></div>
                                     </div>
                                 </div>
                             )}

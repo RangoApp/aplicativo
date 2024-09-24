@@ -1,6 +1,9 @@
 .filter-restaurante-modal {
     height: 360px;
-
+    position: sticky;
+    bottom: 0;
+    top:400px;
+    z-index: 99999;
 }
 
 .filter-restaurante-modal h3 {

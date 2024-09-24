@@ -14,7 +14,8 @@
     --shadow:0 4px 16px rgba(0,0,0,.06);
     --shadow-top:0px -4px 20px 4px rgba(0,0,0,0.1);
     --shadow-menu:0px 0px 16px 4px rgba(0,0,0,0.1);
-    --error:#ee4c58
+    --error:#ee4c58;
+    --success:rgb(59, 185, 59);
 }
 
 body {
@@ -42,6 +43,18 @@ button, input, optgroup, select, textarea {
 
 input:focus-visible {
     outline: none;
+}
+
+.container-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1250px;
+    padding: 20px;
 }
 
 .back-btn {
