@@ -40,6 +40,7 @@ public class Restaurante {
 	@OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL)
 	private List<Produto> produtos;
 
+
 	public Long getIdRestaurante() {
 		return idRestaurante;
 	}

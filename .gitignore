@@ -1,2 +1,5 @@
 /.metadata/
 /rango/src/main/java/br/com/impacta/resources/*.json
+/rango-web/src/config
+.idea/
+/rango-web/node_modules

@@ -35,3 +35,4 @@ build/
 
 *.env
 **/src/main/resources/*.json
+/rango/src/main/java/br/com/impacta/rango/config/FirebaseConfig.java

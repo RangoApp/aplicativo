@@ -34,6 +34,8 @@ public class Usuario {
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos;
 
+
+
 	public Long getIdUsuario() {
 		return idUsuario;
 	}
