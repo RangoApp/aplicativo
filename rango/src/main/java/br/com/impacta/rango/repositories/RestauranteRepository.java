@@ -8,10 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.impacta.rango.dto.EnderecoResponseDTO;
-import br.com.impacta.rango.dto.RestauranteRegisterDTO;
-import br.com.impacta.rango.dto.RestauranteResponseDTO;
-import br.com.impacta.rango.dto.UserResponseDTO;
+import br.com.impacta.rango.dto.enderecos.EnderecoResponseDTO;
+import br.com.impacta.rango.dto.restaurantes.RestauranteRegisterDTO;
+import br.com.impacta.rango.dto.restaurantes.RestauranteResponseDTO;
+import br.com.impacta.rango.dto.usuarios.UsuarioResponseDTO;
 import br.com.impacta.rango.entities.Endereco;
 import br.com.impacta.rango.entities.Restaurante;
 import br.com.impacta.rango.entities.Usuario;

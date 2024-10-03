@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.impacta.rango.dto.ProdutoRegisterDTO;
+import br.com.impacta.rango.dto.produtos.ProdutoRegisterDTO;
 import br.com.impacta.rango.entities.Produto;
 import br.com.impacta.rango.repositories.ProdutoRepository;
 
@@ -23,13 +23,14 @@ public class ProdutoController {
 
 	@Autowired
 	private ProdutoRepository repo;
-@PostMapping
-public ResponseEntity<String> saveProduto (@RequestHeader("Authorization") String token, @RequestBody ProdutoRegisterDTO data) { 
-	if (repo.saveProduto (data)) {
-		return ResponseEntity.ok("Produto cadastrado com sucesso");
+	
+	@PostMapping
+	public ResponseEntity<String> saveProduto (@RequestHeader("Authorization") String token, @RequestBody ProdutoRegisterDTO data) { 
+		if (repo.saveProduto(data)) {
+			return ResponseEntity.ok("Produto cadastrado com sucesso");
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST) .body ("Verificar dados do Produto");
 	}
-	return ResponseEntity.status(HttpStatus.BAD_REQUEST) .body ("Verificar dados do Produto");
-}
 
 
 	@PutMapping("{id}")

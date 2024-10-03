@@ -5,7 +5,7 @@ import Header from "../Header";
 const ProtectedRoute = ({ component: Component }) => {
   const { isLoading, isAuthenticated } = useAuth();
 
-  const Loading = () => <div className='loading-screen'>Loading...</div>;
+  const Loading = () => <div className='loading-screen'><img src={"/assets/img/rango-logo.png"}/></div>;
   if (isLoading) {
     return <Loading />;
   }

@@ -1,14 +1,21 @@
-.footer-bar {
-    height: 60px;
+.footer-wrapper {
+    height: 100%;
     width: 100%;
     position: sticky;
     bottom:0;
-    background: #fff;
     box-shadow: var(--shadow-top);
     bottom: 0;
-    justify-content: space-around;
     display: none;
     z-index: 99999;
+    flex-direction: column;
+}
+
+.footer-bar {
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    height: 60px;
+    width: 100%;
 }
 
 .footer-bar a {
@@ -43,8 +50,58 @@
     color: var(--color-max) !important;
 }
 
+.sacola-footer {
+    border: none;
+    display: flex;
+    height: 50px;
+    align-items: center;
+    padding: 0 15px;
+    justify-content: space-between;
+    background: var(--primaryColor);
+    color: #fff;
+}
+
+.sacola-footer .icon-cart,
+.sacola-footer #valor,
+.sacola-footer label {
+    width: 33%;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.sacola-footer label {
+    justify-content: center;
+}
+
+.sacola-footer #valor {
+    justify-content: flex-end;
+}
+
+.sacola-footer .icon-cart {
+    position: relative;
+}
+
+.sacola-footer .icon-cart span {
+    position: absolute;
+
+    color: var(--primaryColor);
+    background: #fff;
+    font-size: .7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--primaryColor);
+    top:6px;
+    left:10px;
+
+}
+
 @media only screen and (max-width: 750px) {
-    .footer-bar {
+    .footer-wrapper {
         display: flex;
     }
 }

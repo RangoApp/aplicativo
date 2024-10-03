@@ -6,9 +6,9 @@ import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.auth.UserRecord.CreateRequest;
 
-import br.com.impacta.rango.dto.EmailDTO;
-import br.com.impacta.rango.dto.RegisterUserDTO;
-import br.com.impacta.rango.dto.RegisterUserResponseDTO;
+import br.com.impacta.rango.dto.email.EmailDTO;
+import br.com.impacta.rango.dto.usuarios.UsuarioEmailRegisterDTO;
+import br.com.impacta.rango.dto.usuarios.UsuarioRegisterResponseDTO;
 import br.com.impacta.rango.entities.Usuario;
 import br.com.impacta.rango.interfaces.IUserRepository;
 import br.com.impacta.rango.repositories.EmailOTPRepository;
@@ -29,7 +29,7 @@ public class AuthController {
 	private EmailOTPRepository emailRepo;
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterUserResponseDTO> register(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<UsuarioRegisterResponseDTO> register(@RequestHeader("Authorization") String token) {
         try {
         	 // Remover o prefixo 'Bearer ' do token
             String idToken = token.replace("Bearer ", "");
@@ -55,7 +55,7 @@ public class AuthController {
             	hasEndereco = !(oldUser.getEnderecos().isEmpty());
             }
             
-            RegisterUserResponseDTO response = new RegisterUserResponseDTO(id,hasEndereco);
+            UsuarioRegisterResponseDTO response = new UsuarioRegisterResponseDTO(id,hasEndereco);
             
             return ResponseEntity.ok(response);
         } catch (FirebaseAuthException e) {
@@ -75,7 +75,7 @@ public class AuthController {
     }
     
     @PostMapping("/verificateEmailCode")
-    public ResponseEntity<String> verificateEmailCode(@RequestBody RegisterUserDTO reg) {
+    public ResponseEntity<String> verificateEmailCode(@RequestBody UsuarioEmailRegisterDTO reg) {
     	String email = reg.email();
     	if(emailRepo.verifyCode(email, reg.code())) {
     		

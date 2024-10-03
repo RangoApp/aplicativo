@@ -22,13 +22,23 @@
 .lista-restaurantes-slider-card {
     min-width: 100px;
     border-radius: 6px;
-    padding: 10px;
     text-align: center;
-    height: 72px;
+    height: 95px;
+    gap:4px;
     cursor: pointer;
     transition: .2s ease;
     z-index: 1;
-    background: grey;
+    display: flex;
+    flex-direction: column;
+    color: #444;
+
+}
+
+.lista-restaurantes-slider-card img {
+    border-radius: 6px;
+    height: 75%;
+    width: 100%;
+    object-fit: cover;
 }
 
 

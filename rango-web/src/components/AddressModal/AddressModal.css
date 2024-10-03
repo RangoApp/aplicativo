@@ -1,3 +1,321 @@
+/* MODAL */
+
+.address-modal {
+    overflow-y: auto;
+    position: relative;
+    top:0;
+    height: 75vh;
+    width: 650px;
+    /* padding: 20px; */
+    border-radius: 4px;
+    color:var(--color-bold) ;
+    background: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    z-index: 99999;
+    animation: slideDownMenu 0.5s forwards; 
+}
+
+.address-list-header{
+    padding: 20px;
+}
+
+.address-modal .title-address {
+    font-size: 1.125rem;
+    text-align: center;
+    line-height: 22px;
+}
+
+.address-modal .search-address-wrapper{
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    padding: 8px 16px;
+    gap: 4px;
+    background: var(--bg-grey);
+}
+
+.address-modal .search-address-wrapper button,
+.address-modal .search-address-wrapper input{
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.address-modal .search-address-wrapper input::placeholder
+,.address-modal .search-address-wrapper button
+{
+    color: #444;
+}
+
+.address-modal .search-address-wrapper button {
+    text-align: left;
+}
+
+.address-modal .search-address-wrapper i {
+    color: var(--primaryColor);
+    font-size: 18px;
+    width: 18px;
+}
+
+.current-place {
+    margin-top: 16px;
+    border: none;
+    background: transparent;
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    transition: .2s ease;
+}
+
+.current-place i {
+    font-size: 22px;
+    color: var(--color);
+}
+
+.background-shadow {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.237);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top:0;
+    display: flex;
+    justify-content: center;
+    z-index: 99999999999999999;
+}
+
+.close-modal {
+    position: absolute;
+    visibility: hidden;
+    background: transparent;
+    border: none;
+    font-size: 19px;
+    transform: rotate(270deg);
+    color: var(--primaryColor);
+}
+
+.edit-address-form {
+    padding: 20px 54px;
+}
+
+.edit-address {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.edit-address .map {
+    background: red;
+    height: 6rem;
+}
+.edit-address input {
+    box-sizing: border-box;
+    width: 100%;
+    border: none;
+    padding: 13px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    height: 48px;
+}
+
+.edit-address-form .input-label-wrapper label{
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.input-group-1-4 {
+    display: flex;
+    width: 100%;
+    gap:20px;
+    margin-bottom: 24px;
+    margin-top: 18px;
+}
+
+.input-group-1-4 #number-input:first-child {
+    width: 25%;
+}
+
+.input-group-1-4 #complemento-input:last-child {
+    width: 100%;
+}
+
+.complemento-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap:7px;
+}
+
+.complemento-wrapper p {
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--color);
+    margin: 0;
+}
+
+.address-type-wrapper {
+    margin-bottom: 12px;
+    margin-top: 24px;
+}
+.address-type-wrapper p {
+    font-weight: 400;
+}
+.address-type {
+    display: flex;
+    gap: 10px;
+}
+
+.address-type .type {
+    background: var(--bg-grey);
+    cursor: pointer;
+    width: 100%;
+    padding: 14px 0;
+    border-radius: 4px;
+    color: #fff;
+    border: 1px solid var(--bg-grey);
+    color: var(--color);
+    font-size: 1rem;
+    line-height: 1em;
+}
+
+.address-street,.address-state {
+    margin: 0;
+}
+
+.address-complete {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.search-addresses {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin-top: 24px;
+    padding: 0 20px;
+}
+
+.search-addresses.user-addresses {
+    background: var(--bg-grey);
+    padding: 20px;
+    margin-top: 0px;
+}
+
+.search-addresses.user-addresses .search-address-card{
+    box-shadow: var(--shadow);
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+}
+
+.search-address-card {
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    transition: .2s ease;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.search-address-card-selecionado {
+    border: 1px solid var(--primaryColor);
+}
+
+.search-address-card i,
+.current-place i {
+    font-size: 22px;
+    color: var(--color-lighter);
+}
+.street-wrapper p {
+    margin: 2px 0;
+    text-align: left;
+}
+.street-wrapper #street {
+    color: var(--color);
+    font-weight: 500;
+}
+
+.search-address-card:hover,
+.current-place:hover {
+    filter: brightness(0.65);
+}
+
+.search-addresses.user-addresses .search-address-card:hover {
+    filter: brightness(0.96);
+}
+
+.address-state, .street-wrapper #state{
+    color: var(--color-lighter);
+    font-size: 13px;
+}
+
+.address-options {
+    border: none;
+    background: transparent;
+    position: absolute;
+    right: 10px;
+    top:10px;
+}
+
+.address-options i {
+    font-size: 16px;
+}
+
+.address-options-actions {
+    padding: 8px 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    animation: slideDownOptions .3s forwards;
+}
+
+.address-options-actions button {
+    background: transparent;
+    border: none;
+}
+
+.address-options-actions i {
+    font-size: 18px;
+}
+
+@keyframes slideDownOptions {
+    from {
+        left: -20px;
+    }
+    to {
+        left: 0;
+    }
+}
+
+
+.address-info {
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.address-info i {
+    color: var(--primaryColor);
+    transform: rotate(270deg);
+    font-size: 16px;
+}
+
+.address-info span {
+    color: var(--color-medium);
+}
+
 .edit-address-wrapper {
     height: 100%;
     width: 100%;
@@ -35,4 +353,32 @@
     box-sizing: border-box;
     width: 95%;
     bottom: 20px;
+}
+
+@media only screen and (max-width: 750px) {
+    .address-modal .title-address {
+        margin: 32px 0 10px 0;
+    }
+    .address-modal {
+        width: 100%;
+        height: 100vh;
+        animation: slideDownMenuMobile 0.4s ease-out;
+    }
+
+    .address-complete {
+        flex-direction: column;
+        align-items: flex-start;
+        gap:2px;
+    }
+
+    .edit-address-form {
+        padding: 20px;
+    }
+
+    .edit-address input {
+        border: none;
+        border-bottom: 1px solid var(--border);
+        border-radius: 0;
+    }
+
 }

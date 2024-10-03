@@ -6,8 +6,8 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.impacta.rango.dto.RegisterEnderecoDTO;
-import br.com.impacta.rango.dto.RegisterEnderecoResDTO;
+import br.com.impacta.rango.dto.enderecos.EnderecoRegisterDTO;
+import br.com.impacta.rango.dto.enderecos.EnderecoRegisterResponseDTO;
 import br.com.impacta.rango.entities.Endereco;
 import br.com.impacta.rango.entities.Restaurante;
 import br.com.impacta.rango.entities.Usuario;
@@ -30,7 +30,7 @@ public class EnderecoRepository {
 	private IRestauranteRepository resRepo;
 
 	
-	public boolean saveEnderecoRestaurante(RegisterEnderecoResDTO data) {
+	public boolean saveEnderecoRestaurante(EnderecoRegisterResponseDTO data) {
 		Restaurante restaurante = null;
 		try {
 			//primeiro verifica se o restaurante existe ou lança erro;
@@ -74,7 +74,7 @@ public class EnderecoRepository {
 		}
 	}
 	
-	public boolean saveEndereco(RegisterEnderecoDTO data) {
+	public boolean saveEndereco(EnderecoRegisterDTO data) {
 		Endereco newEndereco = new Endereco();
 		Usuario usuario = userRepo.findById(data.idUsuario()).orElseThrow();
 		
@@ -106,7 +106,7 @@ public class EnderecoRepository {
         repo.marcarComoSelecionado(idSelecionado);
     }
 	
-	public boolean editEndereco(Long idEndereco,RegisterEnderecoDTO data) {
+	public boolean editEndereco(Long idEndereco,EnderecoRegisterDTO data) {
 		try {
 			Endereco newEndereco = repo.findById(idEndereco).orElseThrow();
 			

@@ -227,14 +227,14 @@ const Admin = () => {
                         placeholder="Cidade"
                     />
                     <input 
-                        value={longitude}
-                        onChange={(e) => setLongitude(e.target.value)}
-                        placeholder="Longitude"
-                    />
-                    <input 
                         value={latitude}
                         onChange={(e) => setLatitude(e.target.value)}
                         placeholder="Latitude"
+                    />
+                    <input 
+                        value={longitude}
+                        onChange={(e) => setLongitude(e.target.value)}
+                        placeholder="Longitude"
                     />
                     <button onClick={handleEndereco}>Salvar</button>
                     <button onClick={() => setEtapa(3)}>Avançar</button>

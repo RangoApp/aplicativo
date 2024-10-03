@@ -11,11 +11,17 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProduto;
+    
+    @Column(length=32,nullable=false)
     private String nomeProduto;
     private String descricao;
+    
+    @Column(nullable=false)
     private Double preco;
     
+    @Column
     private String img;
+    
     @ManyToOne
     @JoinColumn(name = "idCategoria")
     private Categoria categorias;

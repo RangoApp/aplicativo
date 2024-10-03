@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.impacta.rango.dto.EditUserRequestDTO;
-import br.com.impacta.rango.dto.EnderecoResponseDTO;
-import br.com.impacta.rango.dto.UserResponseDTO;
+import br.com.impacta.rango.dto.enderecos.EnderecoResponseDTO;
+import br.com.impacta.rango.dto.usuarios.UsuarioEditRequestDTO;
+import br.com.impacta.rango.dto.usuarios.UsuarioResponseDTO;
 import br.com.impacta.rango.entities.Endereco;
 import br.com.impacta.rango.entities.Usuario;
 import br.com.impacta.rango.interfaces.IUserRepository;
@@ -20,7 +20,7 @@ public class UserRepository {
 	@Autowired
 	private IUserRepository repo;
 	
-	public boolean editUser(Long idUsuario,EditUserRequestDTO userDto,String email) {
+	public boolean editUser(Long idUsuario,UsuarioEditRequestDTO userDto,String email) {
 		try {
 			Usuario user = repo.findById(idUsuario).orElseThrow();
 			if(user.getEmail().equals(email)) {
@@ -37,7 +37,7 @@ public class UserRepository {
 		}
 	}
 	
-	public UserResponseDTO findUserById(Long idUsuario, String email) {
+	public UsuarioResponseDTO findUserById(Long idUsuario, String email) {
 		try {
 			Usuario user = repo.findById(idUsuario).orElseThrow();
 			if(user.getEmail().equals(email)) {
@@ -60,7 +60,7 @@ public class UserRepository {
 			            ))
 			            .collect(Collectors.toList());
 
-	            return new UserResponseDTO(
+	            return new UsuarioResponseDTO(
 	            		user.getIdUsuario(),
 	                    user.getNomeCompleto(),
 	                    user.getEmail(),

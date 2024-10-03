@@ -3,7 +3,7 @@ package br.com.impacta.rango.repositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.impacta.rango.dto.ProdutoRegisterDTO;
+import br.com.impacta.rango.dto.produtos.ProdutoRegisterDTO;
 import br.com.impacta.rango.entities.Produto;
 import br.com.impacta.rango.entities.Restaurante;
 import br.com.impacta.rango.interfaces.IProdutoRepository;
@@ -21,7 +21,7 @@ public class ProdutoRepository {
 		Produto newProduto = new Produto();
 		newProduto.setNomeProduto(data.nomeProduto()); 
 		newProduto.setDescricao(data.descricao());
-		newProduto.setImg (data.img());
+		newProduto.setImg(data.img());
 		newProduto.setPreco(data.preco());
 		try {
 			Restaurante restaurante = resRepo.findById(data.idRestaurante()).orElseThrow();

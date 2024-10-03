@@ -6,10 +6,11 @@ import { useUser } from '../../components/UserProvider';
 import { haversineDistance } from '../../includes/Utils';
 import { useNavigate } from 'react-router-dom';
 import './ModalRestaurante.css';
+import MessageComponent from '../../components/MessageComponent';
 const ListaRestaurantes = () => {
 
     const sliderRef = useRef();
-    const { user, fetchUser } = useUser();
+    const { fetchUser,getSelecionado } = useUser();
     const [restaurantes,setRestaurantes]=useState([]);
     const [location,setLocation]=useState({latitude:null,longitude:null});
     const [openOrdenar,setOpenOrdenar]=useState(false);
@@ -21,14 +22,30 @@ const ListaRestaurantes = () => {
     const [currentPage,setCurrentPage]=useState(null);
     const [loading, setLoading] = useState(false); 
     const [last,setLast] = useState(false);// Estado de carregamento
+    const [message, setMessage] = useState(null);
     
     const navigator = useNavigate();
 
     useEffect(()=>{
         fetchUser();
-        const enderecoSelecionado = user.enderecos.find(endereco => endereco.selecionado === true);
-        setLocation({latitude:enderecoSelecionado.latitude,longitude:enderecoSelecionado.longitude});
+        try {
+            if(getSelecionado) {
+                setLocation({latitude:getSelecionado.latitude,longitude:getSelecionado.longitude});
+            } else {
+                showMessage("error","Erro: Servidor desligado")
+            }
+        } catch(e) {
+            console.log(e)
+        }
     },[])
+
+    const showMessage = (type, text) => {
+        setMessage({ type, text });
+        setTimeout(() => {
+            setMessage(null);
+        }, 3000); // A mensagem desaparece após 3 segundos
+    };
+
     useEffect(() => {
         // Função para buscar restaurantes
         const fetchRestaurantes = async () => {
@@ -36,6 +53,7 @@ const ListaRestaurantes = () => {
                 setLoading(true); // Inicia o carregamento
                 try {
                     const response = await api.get(`/restaurantes/proximos/${location.latitude}/${location.longitude}/${page}`);
+                    
                     const result = response.data.content.map((restaurante) => {
                         const distancia = haversineDistance(
                             restaurante.endereco.latitude,
@@ -45,7 +63,7 @@ const ListaRestaurantes = () => {
                         );
 
                         const tempo = distancia * 60; // Exemplo de cálculo do tempo
-                        const tempoLimite = distancia * 180; // Exemplo de limite de tempo
+                        const tempoLimite = tempo + 20; // Exemplo de limite de tempo
                         const frete = distancia * 3.99; // Exemplo de cálculo de frete
 
                         return {
@@ -72,19 +90,13 @@ const ListaRestaurantes = () => {
 
     const categorias = [
         {
-            img:"",
+            img:"/assets/img/hamburguer5.jpg",
             link:"",
             descricao: "Lanches",
             id:"LANCHES"
         },
         {
-            img:"",
-            link:"",
-            descricao:"Padaria",
-            id:"PADARIA"
-        },
-        {
-            img:"",
+            img:"/assets/img/brasil.jpg",
             link:"",
             descricao:"Brasileira",
             id:"BRASILEIRA"
@@ -115,6 +127,7 @@ const ListaRestaurantes = () => {
     }, [sortBy]);
     return(
         <>
+         {message && <MessageComponent type={message.type} text={message.text} />}
         <div className='container-wrapper'>
           <div className='container'>
             <div className='lista-restaurantes-slider-wrapper'>

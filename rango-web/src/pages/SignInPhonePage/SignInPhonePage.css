@@ -70,6 +70,7 @@
 ,.otp-phone-number-sign-in button
 ,.edit-address .save-btn
 ,.map-wrapper .btn-map-confirm
+,.sacola-modal-footer button
 {
     cursor: pointer;
     width: 100%;
@@ -84,7 +85,8 @@
 .phone-number-sign-in button:hover
 ,.otp-phone-number-sign-in button:hover
 ,.edit-address .save-btn:hover
-,.map-wrapper .btn-map-confirm:hover {
+,.map-wrapper .btn-map-confirm:hover,
+.sacola-modal-footer button:hover {
     filter: brightness(0.9);
 }
 

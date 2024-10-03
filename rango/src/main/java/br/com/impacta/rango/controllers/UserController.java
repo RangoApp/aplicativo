@@ -4,8 +4,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 
-import br.com.impacta.rango.dto.EditUserRequestDTO;
-import br.com.impacta.rango.dto.UserResponseDTO;
+import br.com.impacta.rango.dto.usuarios.UsuarioEditRequestDTO;
+import br.com.impacta.rango.dto.usuarios.UsuarioResponseDTO;
 import br.com.impacta.rango.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class UserController {
 	private UserRepository repo;
     
     @PutMapping("{id}")
-    public ResponseEntity<String> editUser(@RequestHeader("Authorization") String token, @PathVariable Long id,@RequestBody EditUserRequestDTO data) {
+    public ResponseEntity<String> editUser(@RequestHeader("Authorization") String token, @PathVariable Long id,@RequestBody UsuarioEditRequestDTO data) {
     	try {
     		String idToken = token.replace("Bearer ", "");
 	        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
@@ -42,11 +42,11 @@ public class UserController {
     }
     
     @GetMapping("{id}")
-    public ResponseEntity<UserResponseDTO> findById(@RequestHeader("Authorization") String token, @PathVariable Long id) {
+    public ResponseEntity<UsuarioResponseDTO> findById(@RequestHeader("Authorization") String token, @PathVariable Long id) {
     	try {
     		String idToken = token.replace("Bearer ", "");
 	        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
-	        UserResponseDTO user = repo.findUserById(id, decodedToken.getEmail());
+	        UsuarioResponseDTO user = repo.findUserById(id, decodedToken.getEmail());
 
 	        return ResponseEntity.ok(user);
     	}catch (FirebaseAuthException e) {

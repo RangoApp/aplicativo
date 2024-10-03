@@ -1,4 +1,4 @@
-package br.com.impacta.rango.dto;
+package br.com.impacta.rango.dto.restaurantes;
 
 import br.com.impacta.rango.entities.CategoriaRestaurante;
 

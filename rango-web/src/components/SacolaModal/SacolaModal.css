@@ -1,0 +1,177 @@
+.sacola-modal {
+    width: 450px;
+    position: fixed;
+    height: 100%;
+    top:81px;
+    right: -450px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease-in-out, right 0.2s ease-in-out;
+    background: #fff;
+}
+
+.sacola-modal-container {
+    height: 100%;
+
+    overflow-y: auto;
+}
+
+.background-sacola-modal {
+    background: transparent;
+    position: fixed;
+    top:0;
+    right: 0;
+    left:0;
+    bottom: 0;
+    z-index: -1;
+    transition: .2s;
+}
+
+.sacola-modal.open,.sacola-modal-footer.open {
+    right: 0;
+}
+
+.background-sacola-modal.open-background {
+    z-index: 999;
+}
+
+.sacola-modal p {
+    margin: 0;
+}
+
+.sacola-modal-body {
+    padding: 50px;
+    background: #fff;
+}
+
+.sacola-modal-body .title-wrapper p:first-child {
+    color: var(--color);
+    font-size: .75rem;
+}
+
+.sacola-modal-body .title-wrapper p:last-child {
+    font-size:.95rem;
+    margin: 10px 0;
+}
+
+.sacola-modal-body h3 {
+    margin: 0;
+    font-weight: 400;
+    font-size: 1.3rem;
+    margin: 6px 0 12px 0;
+}
+
+.sacola-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.sacola-modal-header a {
+    color: var(--primaryColor);
+    text-decoration: none;
+}
+
+.sacola-modal-itens .card {
+    padding: 20px 0;
+    gap:10px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.sacola-modal-itens .card .info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sacola-modal-itens .card .options {
+    display: flex;
+    gap:36px
+}
+
+.sacola-modal-itens .card .options button {
+    border: none;
+    background: transparent;
+    font-size: .9rem;
+    font-weight: 600;
+    padding: 0;
+}
+
+.sacola-modal-itens .card .options button:first-child {
+    color: var(--primaryColor);
+}
+
+.sacola-modal-itens .card .options button:last-child {
+    color: var(--color-lighter);   
+}
+
+.financeiro-info {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap:8px;
+    height: 200px;
+}
+
+.financeiro-info div {
+    display: flex;
+    justify-content: space-between;
+    color: var(--color);
+    font-size: .9rem;
+}
+
+.sacola-modal-footer {
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    position: fixed;
+    width: 350px;
+    bottom: 0;
+    right: -420px;
+    padding: 16px 50px;
+    background: #fff;
+    transition: right .2s ease; /* Transição suave */
+}
+
+.sacola-modal-footer div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+}
+
+@media only screen and (max-width: 750px) {
+    .sacola-modal {
+        width: 100%;
+        right: 0;
+        transform: translateY(100%);
+    }
+
+     .open-background {
+        background: rgba(0,0,0,0.3);
+    }
+
+    .sacola-modal.open {
+        transform: translateY(0);
+    }
+
+    .financeiro-info {
+        height: 220px;
+    }
+
+    .sacola-modal-footer {
+        display: flex;
+        flex-direction: column;
+        gap:10px;
+        position: fixed;
+        width: 100%;
+        bottom: 100px;
+        box-sizing: border-box;
+        right: 0;
+        padding: 16px 50px;
+        background: #fff;
+        transition: right .2s ease; /* Transição suave */
+    }
+
+    
+}

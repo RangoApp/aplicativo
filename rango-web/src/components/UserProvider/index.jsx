@@ -29,7 +29,7 @@ export const UserProvider = ({ children }) => {
 
                          // Filtrar o endereço selecionado
                         const selected = userApi.enderecos.find(address => address.selecionado === true);
-                        setSelecionado(selected || null); // Armazena o endereço selecionado ou null se não houver
+                        setSelecionado(selected || null);
                     }
                 }
             } catch(e) {

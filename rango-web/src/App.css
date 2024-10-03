@@ -10,3 +10,19 @@
     align-items: center;
     transition: .5 ease;
 }
+
+.loading-screen img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    animation: rotacaoInfinita 1s linear infinite; 
+}
+
+@keyframes rotacaoInfinita {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }

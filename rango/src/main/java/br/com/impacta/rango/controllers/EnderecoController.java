@@ -19,10 +19,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 
-import br.com.impacta.rango.dto.CoordenadasDTO;
-import br.com.impacta.rango.dto.EditUserRequestDTO;
-import br.com.impacta.rango.dto.RegisterEnderecoDTO;
-import br.com.impacta.rango.dto.RegisterEnderecoResDTO;
+import br.com.impacta.rango.dto.enderecos.CoordenadasDTO;
+import br.com.impacta.rango.dto.enderecos.EnderecoRegisterDTO;
+import br.com.impacta.rango.dto.enderecos.EnderecoRegisterResponseDTO;
+import br.com.impacta.rango.dto.usuarios.UsuarioEditRequestDTO;
 import br.com.impacta.rango.entities.Endereco;
 import br.com.impacta.rango.repositories.EnderecoRepository;
 
@@ -34,7 +34,7 @@ public class EnderecoController {
 	private EnderecoRepository repo;
 	
 	@PostMapping
-	public ResponseEntity<String> saveEndereco(@RequestHeader("Authorization") String token,@RequestBody RegisterEnderecoDTO data) {
+	public ResponseEntity<String> saveEndereco(@RequestHeader("Authorization") String token,@RequestBody EnderecoRegisterDTO data) {
 		
 	    if(repo.saveEndereco(data)) {
 	    	return ResponseEntity.ok("Endereço cadastrado com sucesso");
@@ -45,7 +45,7 @@ public class EnderecoController {
 	}
 	
 	@PostMapping("/restaurantes")
-	public ResponseEntity<String> saveEnderecoRestaurante(@RequestHeader("Authorization") String token,@RequestBody RegisterEnderecoResDTO data) {
+	public ResponseEntity<String> saveEnderecoRestaurante(@RequestHeader("Authorization") String token,@RequestBody EnderecoRegisterResponseDTO data) {
         if(repo.saveEnderecoRestaurante(data)) {
         	return ResponseEntity.ok("Endereço cadastrado com sucesso");
         };
@@ -54,7 +54,7 @@ public class EnderecoController {
 	}
 	
 	@PutMapping("{id}")
-	ResponseEntity<String> editEndereco(@RequestHeader("Authorization") String token,@PathVariable Long id, @RequestBody RegisterEnderecoDTO data) {
+	ResponseEntity<String> editEndereco(@RequestHeader("Authorization") String token,@PathVariable Long id, @RequestBody EnderecoRegisterDTO data) {
         if(repo.editEndereco(id,data)) {
         	return ResponseEntity.ok("Endereço atualizado com sucesso");
         };

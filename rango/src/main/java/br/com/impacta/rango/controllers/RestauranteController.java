@@ -22,11 +22,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 
-import br.com.impacta.rango.dto.CoordenadasDTO;
-import br.com.impacta.rango.dto.EditUserRequestDTO;
-import br.com.impacta.rango.dto.RegisterEnderecoDTO;
-import br.com.impacta.rango.dto.RestauranteRegisterDTO;
-import br.com.impacta.rango.dto.RestauranteResponseDTO;
+import br.com.impacta.rango.dto.enderecos.CoordenadasDTO;
+import br.com.impacta.rango.dto.enderecos.EnderecoRegisterDTO;
+import br.com.impacta.rango.dto.restaurantes.RestauranteRegisterDTO;
+import br.com.impacta.rango.dto.restaurantes.RestauranteResponseDTO;
+import br.com.impacta.rango.dto.usuarios.UsuarioEditRequestDTO;
 import br.com.impacta.rango.entities.Endereco;
 import br.com.impacta.rango.entities.Restaurante;
 import br.com.impacta.rango.repositories.EnderecoRepository;
