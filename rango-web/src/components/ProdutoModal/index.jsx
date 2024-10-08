@@ -9,6 +9,18 @@ const ProdutoModal = ({setOpenProdutoModal,openProdutoModal,produto,restaurante}
         const precoBase = produto.preco * qtd;
         let sacola = localStorage.getItem("sacola");
     
+        var agora = new Date();
+        var agoraLimite = new Date();
+        
+        // Definindo a quantidade de minutos a adicionar
+        var minutos = restaurante.tempo;
+        var minutosLimite = restaurante.tempoLimite;
+
+        // Adicionando os minutos à hora atual
+        agora.setMinutes(agora.getMinutes() + minutos);
+        agoraLimite.setMinutes(agoraLimite.getMinutes() + minutosLimite);
+
+
         // Verifica se já existe uma sacola no localStorage
         if (sacola) {
             sacola = JSON.parse(sacola); // Converte a string JSON para objeto JavaScript
@@ -16,7 +28,9 @@ const ProdutoModal = ({setOpenProdutoModal,openProdutoModal,produto,restaurante}
             if (sacola.idRestaurante !== restaurante.idRestaurante) {
                 // Lógica para lidar com mudança de restaurante, se necessário
                 sacola = {
-                    idRestaurante: restaurante.idRestaurante,
+                    restaurante: {idRestaurante:restaurante.idRestaurante},
+                    tempo:agora.toISOString(),
+                    tempoLimite:agoraLimite.toISOString(),
                     frete:restaurante.frete,
                     nomeRes:restaurante.nomeRes,
                     itens: []
@@ -25,14 +39,16 @@ const ProdutoModal = ({setOpenProdutoModal,openProdutoModal,produto,restaurante}
         } else {
             // Cria uma nova sacola se não existir no localStorage
             sacola = {
-                idRestaurante: restaurante.idRestaurante,
+                restaurante: {idRestaurante:restaurante.idRestaurante},
+                tempo:agora.toISOString(),
+                tempoLimite:agoraLimite.toISOString(),
                 frete:restaurante.frete,
                 nomeRes:restaurante.nomeRes,
                 itens: []
             };
         }
 
-        const itemExistente = sacola.itens.find(item => item.idProduto === produto.idProduto);
+        const itemExistente = sacola.itens.find(item => item.produto.idProduto === produto.produto.idProduto);
         if (itemExistente) {
             // Se o item já existe, atualiza a quantidade e o preço
             itemExistente.preco += precoBase; // Ajusta o preço somando a quantidade
@@ -42,7 +58,7 @@ const ProdutoModal = ({setOpenProdutoModal,openProdutoModal,produto,restaurante}
             // Se o item não existe, cria um novo item
             const novoItem = {
                 preco: precoBase,
-                idProduto: produto.idProduto,
+                produto:{ idProduto: produto.idProduto },
                 nomeProduto:produto.nomeProduto,
                 qtd: qtd, // Adiciona a quantidade atual,
                 obs: obs

@@ -1,0 +1,55 @@
+.finalizar-pedido {
+    justify-content: flex-start;
+    display: flex;
+}
+
+.finalizar-pedido .entrega {
+    display: flex;
+    flex-direction: column;
+}
+
+.finalizar-pedido .col-1 {
+    z-index: 99999999;
+}
+
+
+
+.finalizar-pedido h4 {
+    margin: 0;
+    color: var(--primaryColor);
+    border-bottom: 2px solid var(--primaryColor);
+    display: inline;
+    padding-bottom: 4px;
+    margin-bottom: 20px;
+    width: 60px;
+}
+
+.finalizar-pedido .entrega p {
+    margin: 0;
+    color: #aaaaaa;
+}
+
+.finalizar-pedido .pagamento {
+    margin: 10px 0 48px 0;
+}
+
+.finalizar-pedido h2 {
+    margin: 0;
+    margin-top: 32px;
+    font-size: 1.2rem;
+
+}
+
+.finalizar-pedido .pagamento p {
+    color: #7d7d7d;
+    font-size: .9rem;
+    max-width: 300px;
+}
+
+.finalizar-pedido .pagamento button {
+    border: .7px solid #d1d1d1;
+    background: transparent;
+    border-radius: 4px;
+    padding: 5px 10px;
+    color: var(--primaryColor);
+}

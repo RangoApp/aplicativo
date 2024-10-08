@@ -18,7 +18,6 @@ const Restaurante = () => {
     useEffect(()=>{
         fetchUser();
         const enderecoSelecionado = user.enderecos.find(endereco => endereco.selecionado === true);
-        console.log(enderecoSelecionado)
         setLocation({latitude:enderecoSelecionado.latitude,longitude:enderecoSelecionado.longitude});
     },[])
 
@@ -26,7 +25,6 @@ const Restaurante = () => {
         async function fetchRestaurante() {
             const response = await api.get("/restaurantes/" + id);
             var res = response.data;
-            console.log(res)
             const distancia = haversineDistance(
                 res.endereco.latitude,
                 res.endereco.longitude,
@@ -34,8 +32,9 @@ const Restaurante = () => {
                 location.longitude
             );
             res.distancia = distancia;
-            res.tempo = distancia * 60; // Exemplo de cálculo do tempo
-            res.tempoLimite = distancia * 180; // Exemplo de limite de tempo
+            const tempo =  distancia < 3 ? (distancia * 20) + 20 : distancia * 20; 
+            res.tempo = tempo; 
+            res.tempoLimite = tempo + 20; // Exemplo de limite de tempo
             res.frete = distancia * 3.99; // Exemplo de cálculo de frete
 
             setRestaurante(res);

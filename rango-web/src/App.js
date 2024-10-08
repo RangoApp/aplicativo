@@ -14,6 +14,8 @@ import { UserProvider } from './components/UserProvider';
 import ListaRestaurantes from './pages/ListaRestaurantes';
 import Restaurante from './pages/Restaurante';
 import Admin from './pages/Admin';
+import FinalizarPedido from './pages/FinalizarPedido';
+import Acompanhamento from './pages/Acompanhamento';
 
 function App() {
   return (
@@ -32,6 +34,9 @@ function App() {
         <Route path='/home' element={<ProtectedRoute component={<ListaRestaurantes />} />}/>
         <Route path='/restaurante/:id' element={<ProtectedRoute component={<Restaurante />} />}/>
         <Route path='/admin' element={<Admin />}/>
+        <Route path='/pedido/finalizar' element={<ProtectedRoute component={<FinalizarPedido />}/>} />
+        <Route path='/pedido/acompanhamento/:pedido' element={<ProtectedRoute component={<Acompanhamento/>}/>} />
+
       </Routes>
       </UserProvider>
     </AuthProvider>

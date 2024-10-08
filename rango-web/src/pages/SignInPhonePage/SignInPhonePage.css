@@ -71,6 +71,7 @@
 ,.edit-address .save-btn
 ,.map-wrapper .btn-map-confirm
 ,.sacola-modal-footer button
+,#finalizar
 {
     cursor: pointer;
     width: 100%;

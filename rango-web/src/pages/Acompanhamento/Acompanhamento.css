@@ -1,0 +1,62 @@
+.status-bar {
+    width: 100%;
+    display: flex;
+    gap:12px;
+    margin: 20px 0;
+}
+
+.status-bar #bar {
+    height: 4px;
+    background: #efefef;
+    width: 40%;
+}
+
+.status-bar #bar:first-child {
+    width: 20%;
+}
+
+.status-bar #bar div {
+    height: 100%;
+    background: rgb(60, 226, 60);
+    animation: status-bar-animation 3s linear infinite;
+}
+
+#status-text {
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap:24px;
+    color: #444;
+}
+
+#status-text div {
+    width: 10px;
+    height: 10px;
+    border-radius: 40px;
+    background: rgb(60, 226, 60);
+}
+.endereco {
+    display: inline-flex;
+    flex-direction: column;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    margin: 20px 0 ;
+    border-radius: 8px;
+}
+.endereco span {
+    font-weight: 700;
+}
+.endereco p {
+    margin: 6px 0 2px 0;
+    color: #777777;
+}
+
+@keyframes status-bar-animation{
+    from {
+        width: 0;
+    } to {
+        width: 100%;
+    }
+}
+
+

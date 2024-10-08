@@ -1,5 +1,7 @@
 package br.com.impacta.rango.entities;
 
+import java.sql.Timestamp;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -56,6 +58,8 @@ public class ItemPedido {
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
+
+	
 	
 	
 }

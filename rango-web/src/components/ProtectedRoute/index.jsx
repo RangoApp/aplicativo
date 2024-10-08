@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import Header from "../Header";
+import Acompanhamento from "../../pages/Acompanhamento";
 
 const ProtectedRoute = ({ component: Component }) => {
   const { isLoading, isAuthenticated } = useAuth();

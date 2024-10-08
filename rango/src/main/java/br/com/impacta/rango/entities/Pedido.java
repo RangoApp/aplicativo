@@ -34,6 +34,18 @@ public class Pedido {
 	@Column
 	private Timestamp dtNeg;
 	
+	@Column
+	private Timestamp tempo;
+	
+	@Column
+	private Timestamp tempoLimite;
+	
+	@Column
+	private String codigo;
+	
+	@Column
+	private int status;
+	
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private List<ItemPedido> itens;
 
@@ -76,4 +88,36 @@ public class Pedido {
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
 	}
+	
+	public Timestamp getTempo() {
+		return tempo;
+	}
+	public void setTempo(Timestamp tempo) {
+		this.tempo = tempo;
+	}
+	public Timestamp getTempoLimite() {
+		return tempoLimite;
+	}
+	public void setTempoLimite(Timestamp tempoLimite) {
+		this.tempoLimite = tempoLimite;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
+	
+	
 }

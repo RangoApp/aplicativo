@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import api from '../../config/ApiConfig';
 import './SacolaModal.css';
 import { Link, useNavigate } from 'react-router-dom';
-const SacolaModal = ({openSacolaModal,setOpenSacolaModal}) => {
+const SacolaModal = ({finalizarPedido,openSacolaModal,setOpenSacolaModal}) => {
     const [sacola,setSacola]=useState(null);
     const [subtotal,setSubtotal]=useState(0);
     const navigator = useNavigate();
@@ -50,10 +50,15 @@ const SacolaModal = ({openSacolaModal,setOpenSacolaModal}) => {
     if(sacola!=null)
     return(
         <>
-        <div onClick={()=>setOpenSacolaModal(false)} className={`background-sacola-modal ${openSacolaModal ? 'open-background' : ''}`}>
+        <div onClick={()=>{
+            if(!finalizarPedido) 
+            {
+                setOpenSacolaModal(false)
+            }
+            }} className={`background-sacola-modal ${openSacolaModal ? 'open-background' : ''}`}>
             <div onClick={(e)=>e.stopPropagation()} className={`sacola-modal ${openSacolaModal ? 'open' : ''}`}>
                 <div className='sacola-modal-container'>
-                    <button onClick={()=>setOpenSacolaModal(false)} className='back-btn'><i className='fa fa-close'></i></button>
+                    {!finalizarPedido && <button onClick={()=>setOpenSacolaModal(false)} className='back-btn'><i className='fa fa-close'></i></button>}
                     <div className='sacola-modal-body'>
                         <div className='sacola-modal-header'>
                             <div className='title-wrapper'>
@@ -99,7 +104,9 @@ const SacolaModal = ({openSacolaModal,setOpenSacolaModal}) => {
                             <label>Total</label>
                             <p>R${(subtotal + sacola.frete + (subtotal < 35 ? 0.99 : 0)).toFixed(2) }</p>
                         </div>
-                        <button>Escolher forma de pagamento</button>
+                        {!finalizarPedido && <button onClick={()=>{
+                            setOpenSacolaModal(false);
+                            navigator('/pedido/finalizar')}}>Escolher forma de pagamento</button>}
                     </div>
                 </div>
             </div>
