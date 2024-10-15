@@ -16,6 +16,7 @@ import Restaurante from './pages/Restaurante';
 import Admin from './pages/Admin';
 import FinalizarPedido from './pages/FinalizarPedido';
 import Acompanhamento from './pages/Acompanhamento';
+import CartaoCadastro from './pages/CartaoCadastro';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path='/admin' element={<Admin />}/>
         <Route path='/pedido/finalizar' element={<ProtectedRoute component={<FinalizarPedido />}/>} />
         <Route path='/pedido/acompanhamento/:pedido' element={<ProtectedRoute component={<Acompanhamento/>}/>} />
+        <Route path='/cartao' element={<ProtectedRoute component={<CartaoCadastro />}/>}/>
 
       </Routes>
       </UserProvider>

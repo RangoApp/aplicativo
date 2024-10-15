@@ -32,7 +32,10 @@ const Restaurante = () => {
                 location.longitude
             );
             res.distancia = distancia;
-            const tempo =  distancia < 3 ? (distancia * 20) + 20 : distancia * 20; 
+            const tempo =  distancia < 3 ? 
+            // (distancia * 20) + 20 
+            3
+            : distancia * 20; 
             res.tempo = tempo; 
             res.tempoLimite = tempo + 20; // Exemplo de limite de tempo
             res.frete = distancia * 3.99; // Exemplo de cálculo de frete

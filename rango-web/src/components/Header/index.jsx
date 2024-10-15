@@ -26,7 +26,7 @@ const Header = ({children}) => {
             const sacolaObj = JSON.parse(sacola); // Converter string JSON para objeto
             const total = sacolaObj.itens.reduce((acc, item) => acc + item.preco, 0); // Soma dos preços
             const qtd = sacolaObj.itens.reduce((acc, item) => acc + item.qtd, 0); // Soma das quantidades
-            setSacola({total: total + sacolaObj.frete,qtd: qtd})
+            setSacola({total: total + sacolaObj.frete + (total< 35 ? 0.99 : 0),qtd: qtd})
         }
     },[]);
 

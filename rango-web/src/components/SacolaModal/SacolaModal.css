@@ -98,7 +98,7 @@
     padding: 0;
 }
 
-.sacola-modal-itens .card .options button:first-child {
+.sacola-modal-itens .card .options #editing {
     color: var(--primaryColor);
 }
 
@@ -139,6 +139,20 @@
     justify-content: space-between;
     font-size: 1.1rem;
 }
+
+.qtd-wrapper-sacola {
+    display: flex;
+    align-items: center;
+    gap:10px
+}
+
+.qtd-wrapper-sacola button {
+    font-size: 18px !important;
+    color: var(--primaryColor) !important;
+}
+
+
+
 
 @media only screen and (max-width: 750px) {
     .sacola-modal {

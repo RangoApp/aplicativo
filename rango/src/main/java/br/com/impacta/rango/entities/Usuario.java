@@ -33,6 +33,10 @@ public class Usuario {
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos;
+	
+	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	private List<Cartao> cartoes;
 
 	public Long getIdUsuario() {
 		return idUsuario;
@@ -81,4 +85,14 @@ public class Usuario {
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
 	}
+
+	public List<Cartao> getCartoes() {
+		return cartoes;
+	}
+
+	public void setCartoes(List<Cartao> cartoes) {
+		this.cartoes = cartoes;
+	}
+	
+	
 }

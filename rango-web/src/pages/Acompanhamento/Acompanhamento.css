@@ -5,6 +5,11 @@
     margin: 20px 0;
 }
 
+.acompanhamento #horario {
+    font-size: 24px;
+    font-weight: 700;
+}
+
 .status-bar #bar {
     height: 4px;
     background: #efefef;
@@ -36,12 +41,14 @@
     background: rgb(60, 226, 60);
 }
 .endereco {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     border: 1px solid #e0e0e0;
     padding: 20px;
     margin: 20px 0 ;
     border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
 }
 .endereco span {
     font-weight: 700;
@@ -51,6 +58,57 @@
     color: #777777;
 }
 
+.pedido-finalizado {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pedido-finalizado i:first-child{
+    background: var(--primaryColor);
+    color: #fff;
+    width: 80px;
+    border-radius: 40px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.pedido-finalizado h1 {
+    color: #444;
+}
+
+.itens {
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    width: 100%;
+}
+.itens #detalhes{
+    
+    font-weight: 700;
+}
+
+.itens .card {
+    display: flex;
+    padding-bottom: 10px;
+}
+
+.codigo {
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    font-weight: 700;
+    margin: 20px 0;
+    display: flex;
+}
 @keyframes status-bar-animation{
     from {
         width: 0;

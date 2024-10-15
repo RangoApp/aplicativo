@@ -62,7 +62,10 @@ const ListaRestaurantes = () => {
                             location.longitude
                         );
 
-                        const tempo = distancia < 3 ? (distancia * 20) + 20 : distancia * 20; // Exemplo de cálculo do tempo
+                        const tempo = distancia < 3 ?
+                        //  (distancia * 20) + 20 
+                        3
+                         : distancia * 20; // Exemplo de cálculo do tempo
                         const tempoLimite = tempo + 20; // Exemplo de limite de tempo
                         const frete = distancia * 3.99; // Exemplo de cálculo de frete
 

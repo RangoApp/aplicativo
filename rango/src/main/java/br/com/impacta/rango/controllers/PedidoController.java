@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.impacta.rango.config.EmailConfig;
+import br.com.impacta.rango.dto.email.EmailDTO;
 import br.com.impacta.rango.dto.pedidos.StatusDTO;
 import br.com.impacta.rango.entities.Pedido;
 import br.com.impacta.rango.entities.Produto;
@@ -23,6 +25,10 @@ public class PedidoController {
 	
 	@Autowired
 	private PedidoRepository repo;
+	
+	@Autowired
+	private EmailConfig emailConfig;
+	
 	
 	@PostMapping
 	public ResponseEntity<Long> savePedido (@RequestHeader("Authorization") String token, @RequestBody Pedido data) { 
@@ -42,11 +48,23 @@ public class PedidoController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 	}
 	
-	@PutMapping("/status/{id}")
-	public ResponseEntity<String> atualizaStatus(@RequestHeader("Authorization") String token, @PathVariable Long id, @RequestBody StatusDTO statusDto ) {
-		if(repo.atualizarStatus(id, statusDto.status())) {
+	@PutMapping("/confirmar/{id}/{codigo}")
+	public ResponseEntity<String> atualizaStatus(@RequestHeader("Authorization") String token, @PathVariable Long id, @PathVariable String codigo ) {
+		if(repo.confirmar(id, codigo)) {
 			return ResponseEntity.ok ("Status atualizado com sucesso");
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao atualizar status");
+	}
+	
+	
+	@PostMapping("/email/{id}/{status}")
+	public ResponseEntity<String> enviaEmail(@RequestHeader("Authorization") String token ,@PathVariable int status,@PathVariable Long id,@RequestBody EmailDTO emailDto) {
+		if(status==3) {
+			repo.pedidoEntregue(id);
+		}
+		String statusMsg = status == 1 ? "Pedido foi confirmado pelo restaurante e estará sendo preparado" : status == 2 ? "Pedido foi preparado" : "Pedido entregue";
+		
+		emailConfig.sendEmail("Rango", "lucasyudi7@gmail.com", emailDto.email(), "Rango - Status do Pedido", statusMsg);
+		return ResponseEntity.ok ("Status atualizado com sucesso");
 	}
 }

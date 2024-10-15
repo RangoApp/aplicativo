@@ -2,6 +2,7 @@ package br.com.impacta.rango.repositories;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,8 @@ public class PedidoRepository {
 		        item.setPedido(pedido);  // Associa o pedido a cada item
 		    }
 			pedido.setDtNeg(Timestamp.from(Instant.now()));
-			pedido.setStatus(1);
-			pedido.setCodigo(randomCodigo());
+			pedido.setStatus(0);
+			pedido.setCodigo(generateRandomCode());
 			Pedido newPedido = repo.save(pedido);
 			return newPedido.getIdPedido();
 		} catch(Exception e) {
@@ -40,18 +41,41 @@ public class PedidoRepository {
 			}
 	}
 	
-	public boolean atualizarStatus(Long id,int newStatus) {
+	public boolean confirmar(Long id,String codigo) {
 		try {
 			Pedido pedido = repo.findById(id).orElseThrow(); 
-			
-			pedido.setStatus(newStatus);
-			return true;
+			if(pedido.getCodigo().equals(codigo) && pedido.getStatus() == 2) {
+				pedido.setStatus(3);
+				repo.save(pedido);
+				return true;
+			}
+			return false;
 			} catch (Exception e) {
 			return false;
 			}
 	}
 	
-	private String randomCodigo() {
-		return "";
+	public void pedidoEntregue(Long id) {
+		try {
+			Pedido pedido = repo.findById(id).orElseThrow(); 
+			
+				pedido.setStatus(2);
+				repo.save(pedido);
+				
+			} catch (Exception e) {
+			
+			}
+	}
+	
+	private String generateRandomCode() {
+		 // Cria um objeto Random
+      Random random = new Random();
+
+      // Gera um número aleatório de 0 a 999999 (6 dígitos)
+      int randomNumber = random.nextInt(999999);
+
+      // Formata o número para sempre ter 6 dígitos
+      String formattedNumber = String.format("%06d", randomNumber);
+      return formattedNumber;
 	}
 }

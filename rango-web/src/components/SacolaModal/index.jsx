@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 const SacolaModal = ({finalizarPedido,openSacolaModal,setOpenSacolaModal}) => {
     const [sacola,setSacola]=useState(null);
     const [subtotal,setSubtotal]=useState(0);
+    const [editing,setEditing]=useState({id:null});
+    const [qtd,setQtd]=useState(0);
     const navigator = useNavigate();
     useEffect(() => {
         const fetchSacola = async () => {
@@ -47,6 +49,34 @@ const SacolaModal = ({finalizarPedido,openSacolaModal,setOpenSacolaModal}) => {
         }
     };
 
+    const handleEditing = (index) => {
+        if(editing.id == null) {
+            setQtd(sacola.itens[index].qtd)
+            setEditing({id:index});
+        } else {
+            const newSacola = { ...sacola, itens: [...sacola.itens] };
+
+            // Atualiza a quantidade do item no índice especificado
+            var preco =  newSacola.itens[index].preco / newSacola.itens[index].qtd;
+            newSacola.itens[index].qtd = qtd;
+            
+            newSacola.itens[index].preco = preco * qtd;
+    
+            // Atualiza o subtotal
+            const newSubtotal = newSacola.itens.reduce((total, item) => item.preco * item.quantidade + total, 0);
+    
+            // Atualiza o estado da sacola e o subtotal
+            setSacola(newSacola);
+            setSubtotal(newSubtotal);
+    
+            // Atualiza o localStorage
+            localStorage.setItem("sacola", JSON.stringify(newSacola));
+            window.location.reload();
+        }
+        // Faz uma cópia dos itens atuais da sacola para não modificar diretamente o estado
+      
+    }
+
     if(sacola!=null)
     return(
         <>
@@ -76,7 +106,14 @@ const SacolaModal = ({finalizarPedido,openSacolaModal,setOpenSacolaModal}) => {
                                             <span>{`R$${item.preco.toFixed(2)}`}</span>
                                         </div>
                                         <div className='options'>
-                                            <button onClick={()=>navigator("/restaurante/" + sacola.idRestaurante)}>Editar</button>
+                                            {
+                                                editing.id == key && <div className='qtd-wrapper-sacola'>
+                                                <button style={{pointerEvents:qtd==1?"none":"auto",opacity:qtd==1?"0.6":"1"}} onClick={()=>setQtd(prevQtd => prevQtd-1)}>-</button>
+                                                <span>{qtd}</span>
+                                                <button onClick={()=>setQtd(prevQtd => prevQtd+1)}>+</button>
+                                                </div>
+                                            }
+                                            <button id="editing" onClick={()=>handleEditing(key)}>{editing.id == key? "Salvar":"Editar"}</button>
                                             <button onClick={()=>handleRemove(key)}>Remover</button>
                                         </div>
                                     </div>

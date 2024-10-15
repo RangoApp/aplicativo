@@ -25,7 +25,7 @@ const ProdutoModal = ({setOpenProdutoModal,openProdutoModal,produto,restaurante}
         if (sacola) {
             sacola = JSON.parse(sacola); // Converte a string JSON para objeto JavaScript
             // Verifica se a sacola pertence ao mesmo restaurante
-            if (sacola.idRestaurante !== restaurante.idRestaurante) {
+            if (sacola.restaurante.idRestaurante !== restaurante.idRestaurante) {
                 // Lógica para lidar com mudança de restaurante, se necessário
                 sacola = {
                     restaurante: {idRestaurante:restaurante.idRestaurante},
@@ -48,7 +48,7 @@ const ProdutoModal = ({setOpenProdutoModal,openProdutoModal,produto,restaurante}
             };
         }
 
-        const itemExistente = sacola.itens.find(item => item.produto.idProduto === produto.produto.idProduto);
+        const itemExistente = sacola.itens.find(item => item.produto.idProduto === produto.idProduto);
         if (itemExistente) {
             // Se o item já existe, atualiza a quantidade e o preço
             itemExistente.preco += precoBase; // Ajusta o preço somando a quantidade
